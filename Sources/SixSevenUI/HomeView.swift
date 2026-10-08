@@ -114,13 +114,13 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     private var questionField: some View {
         SixSevenCard {
             VStack(alignment: .leading, spacing: SixSevenSpacing.small) {
-                Text("WHAT'S THE MOVE?")
+                Text("THE 6/7 CALL")
                     .font(SixSevenTypography.eyebrow)
                     .tracking(1.2)
                     .foregroundStyle(SixSevenColors.contentSecondary)
 
                 TextField(
-                    "What are you deciding?",
+                    "Drop your dilemma here…",
                     text: Binding(
                         get: { viewModel.question },
                         set: { viewModel.question = $0 }

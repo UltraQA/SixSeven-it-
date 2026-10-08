@@ -56,7 +56,7 @@ Eyebrow использует небольшое tracking только для к�
 
 | Product component | SwiftUI implementation |
 |---|---|
-| Decision card | `SixSevenCard` + `TextField(axis: .vertical)` + `80`-character counter |
+| Decision card | `SixSevenCard` with `THE 6/7 CALL` label, `Drop your dilemma here…` placeholder and `80`-character counter |
 | Coin renderer | `CoinView` на `Circle`, `LinearGradient`, `rotation3DEffect` |
 | Primary action | `SixSevenPrimaryButtonStyle` |
 | Secondary/share action | `SixSevenSecondaryButtonStyle` + `ShareLink` |
@@ -73,7 +73,7 @@ Eyebrow использует небольшое tracking только для к�
 
 1. Inline navigation title `SixSeven it!`; справа `Stats` и `Settings`.
 2. Centered header: eyebrow `CAN'T DECIDE?`, hero `Sixseven it.`, tagline `Let the numbers make the call.`
-3. Decision card: label `WHAT'S THE MOVE?`, optional multiline input with an `80`-character limit.
+3. Decision card: label `THE 6/7 CALL`, placeholder `Drop your dilemma here…`, optional multiline input with an `80`-character limit.
 4. Coin stage: neutral coin with `?`, helper `Swipe up to flip`.
 5. Reserved result label `Ready when you are`.
 6. Full-width `Flip it` primary button.

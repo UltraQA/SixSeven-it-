@@ -26,7 +26,7 @@ final class SixSevenAppUITests: XCTestCase {
         app.buttons["sixseven.flipButton"].tap()
 
         XCTAssertTrue(app.buttons["sixseven.shareButton"].waitForExistence(timeout: 3))
-        XCTAssertEqual(questionInput.value as? String, "What are you deciding?")
+        XCTAssertEqual(questionInput.value as? String, "Drop your dilemma here…")
     }
 
     func testHomeIsUsableWithDarkModeLargeTextAndReduceMotion() {
