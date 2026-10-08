@@ -25,7 +25,7 @@ Home screen содержит tagline, поле с label `THE 6/7 CALL` и placeh
 
 Точный timeline MVP: swipe вверх → RNG выбирает outcome → coin animation (`650ms`) → coin settles → показываются outcome и `Share result`, заданный вопрос заменяет tagline → запускаются haptic/audio feedback → следующий flip заблокирован на `1.25s`. Вопрос сохраняется в `FlipResult`, а input очищается после показа результата. Вопрос ограничен `80` символами.
 
-Запуск: кнопка, свайп вверх по монете или shake, если motion control включён.
+Запуск: свайп вверх в Home viewport или shake, если Motion Control включён. Видимая кнопка flip в MVP не используется.
 
 ## 3. Результаты и RNG
 
@@ -47,11 +47,11 @@ MVP допускает SwiftUI renderer через `Canvas`, `Shape` и rotation
 
 Haptics: launch — light impact; обычный result — medium impact; `67` — impact + success notification. Audio — короткие локальные effects через `AVAudioSession`, toggle `Sound Effects`. Отсутствие capability не ломает игру.
 
-UI-строки: `Flip`, `SIX SEVEN!`, `Again`, `Share result`, `Sound Effects`, `Motion Control`.
+UI-строки: `SIX SEVEN!`, `Share result`, `Sound Effects`, `Motion Control`.
 
 ## 5. Result и sharing
 
-После броска показываются outcome, `It's a 6`/`It's a 7`/`SIX SEVEN!`, вопрос и действия `Share result`/`Flip again`.
+После броска показываются outcome, `It's a 6`/`It's a 7`/`SIX SEVEN!`, вопрос и действие `Share result`. Следующий бросок запускается свайпом после cooldown.
 
 MVP использует текстовый payload: `I asked SixSeven it!: “Should I text my ex?” → 67. Can't decide? Sixseven it.` В post-MVP допустима share card через `ImageRenderer`.
 
@@ -59,7 +59,7 @@ MVP использует текстовый payload: `I asked SixSeven it!: “S
 
 MVP сохраняет локально: `totalFlips`, counts каждого outcome, `sixtySeven` count, текущую/максимальную серию и timestamp. История вопросов — опциональна и требует privacy-решения.
 
-В MVP входят Home, optional question, три outcome 47.5/47.5/5, button/swipe/optional shake, SwiftUI animation, haptics, sound toggle, result, Share Sheet, statistics, Dynamic Type, VoiceOver, Dark Mode, Reduce Motion и unit tests.
+В MVP входят Home, optional question, три outcome 47.5/47.5/5, swipe/optional shake, SwiftUI animation, haptics, sound toggle, result, Share Sheet, statistics, Dynamic Type, VoiceOver, Dark Mode, Reduce Motion и unit tests.
 
 Не входят: online multiplayer, accounts, backend, ads, purchases, leaderboards, обязательная физика, обязательный RealityKit, cloud sync и полноценная локализация.
 

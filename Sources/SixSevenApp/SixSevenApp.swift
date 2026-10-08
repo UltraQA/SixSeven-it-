@@ -12,6 +12,7 @@ struct SixSevenApp: App {
                 provider: dependencies.outcomeProvider,
                 feedback: dependencies.feedback,
                 motionClient: dependencies.motion,
+                statisticsStore: dependencies.statisticsStore,
                 settingsStore: dependencies.settingsStore
             )
         }

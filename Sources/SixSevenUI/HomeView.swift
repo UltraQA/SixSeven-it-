@@ -13,12 +13,14 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
         provider: Provider,
         feedback: any FlipFeedbackClient = NoOpFlipFeedbackClient(),
         motionClient: any MotionClient = NoOpMotionClient(),
+        statisticsStore: any StatisticsStore = UserDefaultsStatisticsStore(),
         settingsStore: any SettingsStore = UserDefaultsSettingsStore()
     ) {
         self.motionClient = motionClient
         _viewModel = StateObject(
             wrappedValue: HomeViewModel(
                 provider: provider,
+                statisticsStore: statisticsStore,
                 settingsStore: settingsStore,
                 feedback: feedback
             )
