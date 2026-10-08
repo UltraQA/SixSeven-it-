@@ -6,9 +6,9 @@ final class SixSevenAppUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        let flipButton = app.buttons["sixseven.flipButton"]
-        XCTAssertTrue(flipButton.waitForExistence(timeout: 3))
-        flipButton.tap()
+        let coin = app.otherElements["sixseven.coin"]
+        XCTAssertTrue(coin.waitForExistence(timeout: 3))
+        coin.swipeUp()
 
         let shareButton = app.buttons["sixseven.shareButton"]
         XCTAssertTrue(shareButton.waitForExistence(timeout: 3))
@@ -23,7 +23,9 @@ final class SixSevenAppUITests: XCTestCase {
         questionInput.tap()
         questionInput.typeText("Should I go for it?")
 
-        app.buttons["sixseven.flipButton"].tap()
+        let coin = app.otherElements["sixseven.coin"]
+        XCTAssertTrue(coin.waitForExistence(timeout: 3))
+        coin.swipeUp()
 
         XCTAssertTrue(app.buttons["sixseven.shareButton"].waitForExistence(timeout: 3))
         XCTAssertEqual(questionInput.value as? String, "Drop your dilemma here…")
@@ -39,6 +41,5 @@ final class SixSevenAppUITests: XCTestCase {
         app.launch()
 
         XCTAssertTrue(app.otherElements["sixseven.coin"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.buttons["sixseven.flipButton"].exists)
     }
 }

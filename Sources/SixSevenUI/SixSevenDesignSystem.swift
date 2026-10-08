@@ -110,23 +110,6 @@ public struct SixSevenCard<Content: View>: View {
     }
 }
 
-public struct SixSevenPrimaryButtonStyle: ButtonStyle {
-    public init() {}
-
-    public func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(SixSevenTypography.title)
-            .foregroundStyle(.white)
-            .frame(minHeight: 52)
-            .padding(.horizontal, SixSevenSpacing.large)
-            .background(SixSevenColors.contentPrimary)
-            .clipShape(RoundedRectangle(cornerRadius: SixSevenRadius.control, style: .continuous))
-            .opacity(configuration.isPressed ? 0.78 : 1)
-            .scaleEffect(configuration.isPressed ? 0.98 : 1)
-            .animation(.easeOut(duration: 0.16), value: configuration.isPressed)
-    }
-}
-
 public struct SixSevenSecondaryButtonStyle: ButtonStyle {
     public init() {}
 
@@ -150,7 +133,6 @@ public struct SixSevenSecondaryButtonStyle: ButtonStyle {
 public enum SixSevenAccessibility {
     public static let questionInput = "sixseven.questionInput"
     public static let coin = "sixseven.coin"
-    public static let flipButton = "sixseven.flipButton"
     public static let shareButton = "sixseven.shareButton"
     public static let statsButton = "sixseven.statsButton"
     public static let settingsButton = "sixseven.settingsButton"

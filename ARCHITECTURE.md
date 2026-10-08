@@ -135,7 +135,7 @@ SixSeven/
 
 Unit: probability boundaries, rules validation, deterministic provider, state transitions, streak/statistics, persistence round-trip, question trimming.
 
-UI: first launch → `Flip it` → result; blocking during flip; share sheet; settings; Dynamic Type/Dark Mode.
+UI: first launch → swipe up in the Home interaction zone → result; blocking during flip/cooldown; share sheet; settings; Dynamic Type/Dark Mode.
 
 Snapshot: `idle`, `flipping`, `six`, `seven`, `sixtySeven`, Light/Dark и large fonts. Framework — открытое решение; выбрать один и зафиксировать dependency.
 

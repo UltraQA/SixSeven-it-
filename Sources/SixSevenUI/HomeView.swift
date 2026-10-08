@@ -31,9 +31,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             ScrollView {
                 VStack(spacing: SixSevenSpacing.large) {
                     header
-                    questionField
-                    coinStage
-                    actionArea
+                    coinInteractionZone
                 }
                 .padding(.horizontal, SixSevenSpacing.standard)
                 .padding(.top, SixSevenSpacing.small)
@@ -146,6 +144,23 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
         }
     }
 
+    private var coinInteractionZone: some View {
+        VStack(spacing: SixSevenSpacing.large) {
+            questionField
+            coinStage
+            actionArea
+        }
+        .contentShape(Rectangle())
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 24)
+                .onEnded { value in
+                    guard value.translation.height < -60,
+                          abs(value.translation.height) > abs(value.translation.width) else { return }
+                    viewModel.handleSwipeUp()
+                }
+        )
+    }
+
     private var coinStage: some View {
         VStack(spacing: SixSevenSpacing.compact) {
             CoinView(
@@ -153,15 +168,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 isFlipping: viewModel.isFlipping
             )
             .contentShape(Rectangle())
-            .gesture(
-                DragGesture(minimumDistance: 24)
-                    .onEnded { value in
-                        guard value.translation.height < -60,
-                              abs(value.translation.height) > abs(value.translation.width) else { return }
-                        viewModel.handleSwipeUp()
-                    }
-            )
-            .accessibilityHint("Swipe up to flip")
+            .accessibilityHint("Swipe up anywhere below the header to flip")
 
             if viewModel.currentOutcome == nil && !viewModel.isFlipping {
                 Label("Swipe up to flip", systemImage: "arrow.up")
@@ -175,24 +182,6 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     private var actionArea: some View {
         VStack(spacing: SixSevenSpacing.standard) {
             resultLabel
-
-            Button {
-                if viewModel.currentOutcome == nil {
-                    viewModel.flip()
-                } else {
-                    viewModel.flipAgain()
-                }
-            } label: {
-                Label(
-                    "Flip it!",
-                    systemImage: "arrow.triangle.2.circlepath"
-                )
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(SixSevenPrimaryButtonStyle())
-            .disabled(viewModel.isFlipInteractionLocked)
-            .accessibilityIdentifier(SixSevenAccessibility.flipButton)
-            .accessibilityHint(viewModel.isFlipInteractionLocked ? "Wait a moment before flipping again" : "Starts a coin flip")
 
             if let result {
                 ShareLink(item: SharePayload.text(for: result)) {

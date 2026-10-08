@@ -68,10 +68,6 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
         state.phase == .flipping
     }
 
-    public var isFlipInteractionLocked: Bool {
-        isFlipping || isResultCoolingDown
-    }
-
     public var currentOutcome: Outcome? {
         guard case let .result(result) = state.phase else { return nil }
         return result.outcome

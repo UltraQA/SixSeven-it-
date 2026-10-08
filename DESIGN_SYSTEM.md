@@ -58,9 +58,9 @@ Eyebrow использует небольшое tracking только для к�
 |---|---|
 | Decision card | `SixSevenCard` with `THE 6/7 CALL` label, `Drop your dilemma here…` placeholder and `80`-character counter |
 | Coin renderer | `CoinView` на `Circle`, `LinearGradient`, `rotation3DEffect` |
-| Primary action | `SixSevenPrimaryButtonStyle` |
+| Flip interaction | Swipe up on the full Home interaction zone |
 | Secondary/share action | `SixSevenSecondaryButtonStyle` + `ShareLink` |
-| Result question card | `RoundedRectangle` с теми же card tokens |
+| Result question copy | Header tagline replacement with quoted `FlipResult.question` |
 | Stats row | `List` row с outcome color + monospaced metric |
 | Settings row | Native `Form`/`Toggle`, system accessibility behavior |
 | Navigation actions | `NavigationStack` + SF Symbols `chart.bar`, `gearshape` |
@@ -71,12 +71,12 @@ Eyebrow использует небольшое tracking только для к�
 
 ### Home — idle
 
-1. Inline navigation title `SixSeven it!`; справа `Stats` и `Settings`.
+1. Без app title в navigation bar; справа `Stats` и `Settings`.
 2. Centered header: eyebrow `CAN'T DECIDE?`, hero `Sixseven it.`, tagline `Let the numbers make the call.`
 3. Decision card: label `THE 6/7 CALL`, placeholder `Drop your dilemma here…`, optional multiline input with an `80`-character limit.
 4. Coin stage: neutral coin with `?`, helper `Swipe up to flip`.
 5. Reserved result label `Ready when you are`.
-6. Full-width `Flip it` primary button.
+6. Swipe affordance is the only visible Home trigger; the whole area from the question card downward accepts an upward swipe.
 
 ### Home — result
 
@@ -84,8 +84,7 @@ Eyebrow использует небольшое tracking только для к�
 2. Label: `It's a 6`, `It's a 7` или `SIX SEVEN!`.
 3. При наличии вопроса он заменяет tagline под hero, поэтому вопрос не дублируется в отдельной result-карточке.
 4. Input остаётся на том же месте и готов к следующему вопросу; его счётчик показывает `current/80`.
-5. `Flip it!` остаётся на том же месте и используется во всех состояниях.
-6. Ниже появляется `Share result` secondary action.
+5. Ниже появляется `Share result` secondary action.
 
 ### Stats
 
@@ -107,7 +106,7 @@ Native `Form`: `Sound Effects`, `Motion Control`, затем короткое о
 
 ## Interaction timeline
 
-1. Пользователь нажимает `Flip it!` или делает swipe вверх.
+1. Пользователь делает swipe вверх в зоне от question card до нижней части Home.
 2. `HomeViewModel` один раз выбирает outcome через injected RNG; outcome не зависит от animation.
 3. Запускается coin animation на `SixSevenTiming.flipAnimation` (`650ms`), input блокируется.
 4. После завершения animation показываются outcome и `Share result`; сохранённый вопрос заменяет tagline под hero, а input очищается для следующего решения.
