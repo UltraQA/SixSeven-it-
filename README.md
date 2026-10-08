@@ -16,7 +16,7 @@ The MVP lets a user ask an optional question, flip a coin, and receive one of th
 - Optional haptics, sound, motion control, and RealityKit rendering behind protocols
 - UI strings and technical identifiers in English; project documentation in Russian
 
-See [GAME_DESIGN.md](GAME_DESIGN.md) for the product specification and [ARCHITECTURE.md](ARCHITECTURE.md) for the technical design. Repository workflow and engineering constraints are documented in [AGENTS.md](AGENTS.md).
+See [GAME_DESIGN.md](GAME_DESIGN.md) for the product specification, [ARCHITECTURE.md](ARCHITECTURE.md) for the technical design, and [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) for the visual tokens and screen layouts. Repository workflow and engineering constraints are documented in [AGENTS.md](AGENTS.md).
 
 ## CI
 

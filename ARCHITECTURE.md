@@ -99,11 +99,11 @@ protocol StatisticsStore: Sendable {
 
 ## 7. Design system mapping
 
-Color tokens: `backgroundPrimary`, `backgroundSecondary`, `contentPrimary`, `contentSecondary`, `accentSix`, `accentSeven`, `accentRare`, `surfaceElevated`, `separator`, `destructive`. Нужны Light/Dark и contrast.
+Color tokens: `backgroundPrimary`, `backgroundSecondary`, `contentPrimary`, `contentSecondary`, `accentSix`, `accentSeven`, `accentRare`, `surfaceElevated`, `separator`, `destructive`. Нужны Light/Dark и contrast. Канонические значения, screen layouts и component mapping зафиксированы в `DESIGN_SYSTEM.md`; SwiftUI implementation находится в `SixSevenDesignSystem.swift`.
 
 Typography: `hero` → rounded black 72pt; `display` → `.largeTitle.bold()`; `title` → `.title2.weight(.semibold)`; `body` → `.body`; `caption` → `.caption`. Поддержать Dynamic Type.
 
-Spacing: `4, 8, 12, 16, 24, 32, 48`. Radius: 8 controls, 16 cards, 24+ hero. Touch target ≥ 44×44pt.
+Spacing: `4, 8, 12, 16, 24, 32, 48`. MVP radius: 16 controls, 24 cards, 32 hero. Touch target ≥ 44×44pt.
 
 ## 8. Project structure
 

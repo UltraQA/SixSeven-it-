@@ -32,26 +32,14 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 VStack(spacing: SixSevenSpacing.large) {
                     header
                     questionField
-                    CoinView(
-                        outcome: viewModel.currentOutcome,
-                        isFlipping: viewModel.isFlipping
-                    )
-                    .contentShape(Rectangle())
-                    .gesture(
-                        DragGesture(minimumDistance: 24)
-                            .onEnded { value in
-                                guard value.translation.height < -60,
-                                      abs(value.translation.height) > abs(value.translation.width) else { return }
-                                viewModel.handleSwipeUp()
-                            }
-                    )
-                    .accessibilityHint("Swipe up to flip")
+                    coinStage
                     actionArea
                 }
                 .padding(.horizontal, SixSevenSpacing.standard)
-                .padding(.vertical, SixSevenSpacing.hero)
+                .padding(.top, SixSevenSpacing.large)
+                .padding(.bottom, SixSevenSpacing.hero)
             }
-            .background(SixSevenColors.background.ignoresSafeArea())
+            .background(SixSevenColors.backgroundPrimary.ignoresSafeArea())
             .navigationTitle("SixSeven it!")
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
@@ -100,31 +88,71 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     }
 
     private var header: some View {
-        VStack(spacing: SixSevenSpacing.small) {
-            Text("Can't decide?")
-                .font(SixSevenTypography.title)
+        VStack(spacing: SixSevenSpacing.compact) {
+            Text("CAN'T DECIDE?")
+                .font(SixSevenTypography.eyebrow)
+                .tracking(1.8)
+                .foregroundStyle(SixSevenColors.contentSecondary)
             Text("Sixseven it.")
-                .font(SixSevenTypography.display)
+                .font(SixSevenTypography.hero)
+                .foregroundStyle(SixSevenColors.contentPrimary)
+            Text("Let the numbers make the call.")
+                .font(SixSevenTypography.callout)
+                .foregroundStyle(SixSevenColors.contentSecondary)
         }
-        .foregroundStyle(SixSevenColors.content)
         .multilineTextAlignment(.center)
     }
 
     private var questionField: some View {
-        TextField(
-            "What are you deciding?",
-            text: Binding(
-                get: { viewModel.question },
-                set: { viewModel.question = $0 }
-            ),
-            axis: .vertical
-        )
-        .textFieldStyle(.roundedBorder)
-        .lineLimit(1...3)
-        .submitLabel(.done)
-        .disabled(viewModel.isFlipping)
-        .accessibilityIdentifier(SixSevenAccessibility.questionInput)
-        .accessibilityLabel("Decision question")
+        SixSevenCard {
+            VStack(alignment: .leading, spacing: SixSevenSpacing.small) {
+                Text("YOUR DECISION")
+                    .font(SixSevenTypography.eyebrow)
+                    .tracking(1.2)
+                    .foregroundStyle(SixSevenColors.contentSecondary)
+
+                TextField(
+                    "What are you deciding?",
+                    text: Binding(
+                        get: { viewModel.question },
+                        set: { viewModel.question = $0 }
+                    ),
+                    axis: .vertical
+                )
+                .font(SixSevenTypography.body)
+                .lineLimit(1...3)
+                .submitLabel(.done)
+                .disabled(viewModel.isFlipping)
+                .accessibilityIdentifier(SixSevenAccessibility.questionInput)
+                .accessibilityLabel("Decision question")
+            }
+        }
+    }
+
+    private var coinStage: some View {
+        VStack(spacing: SixSevenSpacing.compact) {
+            CoinView(
+                outcome: viewModel.currentOutcome,
+                isFlipping: viewModel.isFlipping
+            )
+            .contentShape(Rectangle())
+            .gesture(
+                DragGesture(minimumDistance: 24)
+                    .onEnded { value in
+                        guard value.translation.height < -60,
+                              abs(value.translation.height) > abs(value.translation.width) else { return }
+                        viewModel.handleSwipeUp()
+                    }
+            )
+            .accessibilityHint("Swipe up to flip")
+
+            if viewModel.currentOutcome == nil && !viewModel.isFlipping {
+                Label("Swipe up to flip", systemImage: "arrow.up")
+                    .font(SixSevenTypography.caption)
+                    .foregroundStyle(SixSevenColors.contentSecondary)
+                    .accessibilityHidden(true)
+            }
+        }
     }
 
     private var actionArea: some View {
@@ -144,11 +172,13 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                     viewModel.flipAgain()
                 }
             } label: {
-                Text(viewModel.currentOutcome == nil ? "Flip it" : "Flip again")
+                Label(
+                    viewModel.currentOutcome == nil ? "Flip it" : "Flip again",
+                    systemImage: "arrow.triangle.2.circlepath"
+                )
                     .frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
+            .buttonStyle(SixSevenPrimaryButtonStyle())
             .disabled(viewModel.isFlipping)
             .accessibilityIdentifier(SixSevenAccessibility.flipButton)
             .accessibilityHint(viewModel.isFlipping ? "Wait for the result" : "Starts a coin flip")
@@ -158,27 +188,27 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                     Label("Share result", systemImage: "square.and.arrow.up")
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.bordered)
+                .buttonStyle(SixSevenSecondaryButtonStyle())
                 .accessibilityIdentifier(SixSevenAccessibility.shareButton)
             }
         }
     }
 
     private var resultLabel: some View {
-        ZStack {
-            Text("It's a 7")
-                .font(.title2.bold())
-                .hidden()
-                .accessibilityHidden(true)
-
+        Group {
             if let outcome = viewModel.currentOutcome {
                 Text(resultText(for: outcome))
-                    .font(.title2.bold())
-                    .foregroundStyle(outcome == .sixtySeven ? SixSevenColors.rare : SixSevenColors.content)
+                    .font(SixSevenTypography.display)
+                    .foregroundStyle(outcomeColor(for: outcome))
                     .accessibilityAddTraits(.isHeader)
+            } else {
+                Text("Ready when you are")
+                    .font(SixSevenTypography.callout)
+                    .foregroundStyle(SixSevenColors.contentSecondary)
+                    .accessibilityHidden(true)
             }
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, minHeight: 32)
     }
 
     @ViewBuilder
@@ -186,7 +216,8 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
         if let question = result.question {
             VStack(alignment: .leading, spacing: SixSevenSpacing.small) {
                 Text("Your question")
-                    .font(SixSevenTypography.caption)
+                    .font(SixSevenTypography.eyebrow)
+                    .tracking(1.1)
                     .foregroundStyle(SixSevenColors.contentSecondary)
 
                 Text(question)
@@ -196,7 +227,11 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             }
             .padding(SixSevenSpacing.standard)
             .background(SixSevenColors.surfaceElevated)
-            .clipShape(RoundedRectangle(cornerRadius: SixSevenRadius.card))
+            .clipShape(RoundedRectangle(cornerRadius: SixSevenRadius.card, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: SixSevenRadius.card, style: .continuous)
+                    .stroke(SixSevenColors.separator.opacity(0.7), lineWidth: 1)
+            }
             .accessibilityElement(children: .combine)
             .accessibilityIdentifier(SixSevenAccessibility.resultSummary)
         }
@@ -212,6 +247,14 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
         case .six: "It's a 6"
         case .seven: "It's a 7"
         case .sixtySeven: "SIX SEVEN!"
+        }
+    }
+
+    private func outcomeColor(for outcome: Outcome) -> Color {
+        switch outcome {
+        case .six: SixSevenColors.accentSix
+        case .seven: SixSevenColors.accentSeven
+        case .sixtySeven: SixSevenColors.accentRare
         }
     }
 }

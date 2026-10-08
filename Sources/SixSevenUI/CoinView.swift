@@ -6,7 +6,7 @@ public struct CoinView: View {
     public let isFlipping: Bool
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @ScaledMetric(relativeTo: .largeTitle) private var coinDiameter: CGFloat = 220
+    @ScaledMetric(relativeTo: .largeTitle) private var coinDiameter: CGFloat = SixSevenCoinMetrics.diameter
     @ScaledMetric(relativeTo: .largeTitle) private var valueFontSize: CGFloat = 88
 
     public init(outcome: Outcome?, isFlipping: Bool) {
@@ -17,8 +17,24 @@ public struct CoinView: View {
     public var body: some View {
         ZStack {
             Circle()
-                .fill(coinColor.gradient)
-                .overlay(Circle().stroke(.white.opacity(0.35), lineWidth: SixSevenCoinMetrics.borderWidth))
+                .fill(coinGradient)
+                .overlay {
+                    Circle()
+                        .stroke(.white.opacity(0.52), lineWidth: SixSevenCoinMetrics.borderWidth)
+                        .padding(SixSevenSpacing.small)
+                }
+                .overlay {
+                    Circle()
+                        .stroke(.white.opacity(0.22), lineWidth: SixSevenCoinMetrics.innerBorderWidth)
+                        .padding(SixSevenSpacing.compact)
+                }
+                .overlay(alignment: .topLeading) {
+                    Circle()
+                        .fill(.white.opacity(0.25))
+                        .frame(width: coinDiameter * 0.2, height: coinDiameter * 0.2)
+                        .blur(radius: 2)
+                        .offset(x: coinDiameter * 0.22, y: coinDiameter * 0.16)
+                }
                 .shadow(
                     color: coinColor.opacity(0.35),
                     radius: SixSevenCoinMetrics.shadowRadius,
@@ -36,6 +52,7 @@ public struct CoinView: View {
             Text(displayValue)
                 .font(.system(size: valueFontSize, weight: .black, design: .rounded))
                 .foregroundStyle(.white)
+                .shadow(color: .black.opacity(0.18), radius: 1, y: 2)
                 .contentTransition(.numericText())
         }
         .frame(width: coinDiameter, height: coinDiameter)
@@ -74,6 +91,14 @@ public struct CoinView: View {
         case nil:
             SixSevenColors.accent
         }
+    }
+
+    private var coinGradient: LinearGradient {
+        LinearGradient(
+            colors: [coinColor.opacity(0.82), coinColor, coinColor.opacity(0.68)],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
     }
 
     private var accessibilityValue: String {

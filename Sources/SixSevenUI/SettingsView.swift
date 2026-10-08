@@ -29,10 +29,12 @@ public struct SettingsView: View {
 
             Section {
                 Text("Motion Control uses device shake to start a flip when supported.")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .font(SixSevenTypography.caption)
+                    .foregroundStyle(SixSevenColors.contentSecondary)
             }
         }
+        .scrollContentBackground(.hidden)
+        .background(SixSevenColors.backgroundPrimary)
         .navigationTitle("Settings")
     }
 }
