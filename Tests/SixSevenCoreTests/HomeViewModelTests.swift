@@ -59,6 +59,21 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.currentOutcome, .seven)
     }
 
+    func testApplyingSettingsUpdatesMotionPolicyImmediately() async {
+        let viewModel = HomeViewModel(
+            provider: SequenceOutcomeProvider(outcomes: [.six]),
+            statisticsStore: TestStatisticsStore(),
+            settingsStore: TestSettingsStore(),
+            animationDuration: .zero
+        )
+
+        viewModel.apply(settings: AppSettings(motionControlEnabled: true))
+        viewModel.handleShake()
+        await yieldToPendingTasks()
+
+        XCTAssertEqual(viewModel.currentOutcome, .six)
+    }
+
     private func yieldToPendingTasks() async {
         for _ in 0..<20 {
             await Task.yield()

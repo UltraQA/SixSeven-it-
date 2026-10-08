@@ -3,16 +3,25 @@ import SixSevenCore
 
 public struct HomeView<Provider: FlipOutcomeProviding>: View {
     @StateObject private var viewModel: HomeViewModel<Provider>
+    @StateObject private var settingsViewModel: SettingsViewModel
     private let motionClient: any MotionClient
 
     public init(
         provider: Provider,
         feedback: any FlipFeedbackClient = NoOpFlipFeedbackClient(),
-        motionClient: any MotionClient = NoOpMotionClient()
+        motionClient: any MotionClient = NoOpMotionClient(),
+        settingsStore: any SettingsStore = UserDefaultsSettingsStore()
     ) {
         self.motionClient = motionClient
         _viewModel = StateObject(
-            wrappedValue: HomeViewModel(provider: provider, feedback: feedback)
+            wrappedValue: HomeViewModel(
+                provider: provider,
+                settingsStore: settingsStore,
+                feedback: feedback
+            )
+        )
+        _settingsViewModel = StateObject(
+            wrappedValue: SettingsViewModel(store: settingsStore)
         )
     }
 
@@ -47,7 +56,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                     .accessibilityIdentifier(SixSevenAccessibility.statsButton)
 
                     NavigationLink {
-                        SettingsView()
+                        SettingsView(viewModel: settingsViewModel)
                     } label: {
                         Image(systemName: "gearshape")
                     }
@@ -65,6 +74,9 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 }
 
                 await motionClient.stop()
+            }
+            .onChange(of: settingsViewModel.settings) { _, settings in
+                viewModel.apply(settings: settings)
             }
         }
     }

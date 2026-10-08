@@ -101,8 +101,14 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
     }
 
     public func refreshSettings() async {
+        loadTask?.cancel()
+        loadTask = nil
         guard let loadedSettings = try? await settingsStore.load() else { return }
         settings = loadedSettings
+    }
+
+    public func apply(settings: AppSettings) {
+        self.settings = settings
     }
 
     public func handleShake() {
