@@ -88,6 +88,26 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.currentOutcome, .seven)
     }
 
+    func testQuestionClearsAfterFlipWhileResultKeepsOriginalQuestion() async {
+        let viewModel = HomeViewModel(
+            provider: SequenceOutcomeProvider(outcomes: [.six]),
+            state: GameState(question: "Should I go?"),
+            statisticsStore: TestStatisticsStore(),
+            settingsStore: TestSettingsStore(),
+            animationDuration: .zero
+        )
+
+        viewModel.flip()
+        await yieldToPendingTasks()
+
+        XCTAssertEqual(viewModel.question, "")
+        guard case let .result(result) = viewModel.state.phase else {
+            return XCTFail("Expected a completed result")
+        }
+        XCTAssertEqual(result.outcome, .six)
+        XCTAssertEqual(result.question, "Should I go?")
+    }
+
     private func yieldToPendingTasks() async {
         for _ in 0..<20 {
             await Task.yield()

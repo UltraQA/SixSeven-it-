@@ -90,6 +90,7 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
 
             guard !Task.isCancelled, let self else { return }
             guard self.state.finishFlip(with: outcome) else { return }
+            self.state.question = ""
             await self.feedback.playResult(
                 for: outcome,
                 soundEffectsEnabled: self.settings.soundEffectsEnabled
