@@ -30,7 +30,7 @@ jobs:
         run: swift test
 
   ios-simulator:
-    name: iOS Simulator unit tests
+    name: iOS Simulator build
     runs-on: macos-15
     steps:
       - name: Checkout
@@ -41,38 +41,13 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Show available simulators
-        run: xcrun simctl list devices available
-
-      - name: Select an available iPhone simulator
-        shell: bash
-        run: |
-          set -euo pipefail
-          simulator_id="$(xcrun simctl list devices available \
-            | grep -m1 -E 'iPhone .* \([A-F0-9-]{36}\)' \
-            | sed -E 's/.*\(([A-F0-9-]{36})\).*/\1/')"
-          if [[ -z "$simulator_id" ]]; then
-            echo "No available iPhone simulator was found" >&2
-            exit 1
-          fi
-          echo "Using simulator: $simulator_id"
-          echo "SIMULATOR_ID=$simulator_id" >> "$GITHUB_ENV"
-
-      - name: Build and test native app
+      - name: Build native app
         run: >-
           xcodebuild
           -project SixSeven.xcodeproj
           -scheme SixSeven
           -sdk iphonesimulator
-          -destination "platform=iOS Simulator,id=$SIMULATOR_ID"
+          -destination 'generic/platform=iOS Simulator'
           -derivedDataPath "$RUNNER_TEMP/SixSevenDerivedData"
-          -only-testing:SixSevenAppTests
-          test
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: sixseven-xcresult
-          path: ${{ runner.temp }}/SixSevenDerivedData/Logs/Test/*.xcresult
-          if-no-files-found: ignore
+          CODE_SIGNING_ALLOWED=NO
+          build

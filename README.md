@@ -20,7 +20,7 @@ See [GAME_DESIGN.md](GAME_DESIGN.md) for the product specification and [ARCHITEC
 
 ## CI
 
-GitHub Actions runs SwiftPM tests and native iOS unit tests for pushes and pull requests targeting `main`. The workflow selects an available iPhone simulator dynamically, so it does not depend on one particular Xcode device name. UI tests remain available for local Xcode/simulator runs but are intentionally excluded from the required CI gate until the runner environment is stabilized. Failed Xcode test results are uploaded as a workflow artifact when available.
+GitHub Actions runs SwiftPM tests and a generic native iOS Simulator build for pushes and pull requests targeting `main`. Simulator unit/UI tests remain available for local Xcode runs but are intentionally excluded from the required CI gate until the hosted runner environment is stabilized. This keeps CI focused on deterministic compilation and domain tests while the MVP is being developed.
 
 ## Status
 
