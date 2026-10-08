@@ -15,6 +15,7 @@
 		61EFCD1D8F23D31022FD350F /* flip.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5F0FF63DB02AC32713CBFCB /* flip.wav */; };
 		79B4A272F7B0681BD644D0E9 /* rare-result.wav in Resources */ = {isa = PBXBuildFile; fileRef = 45436CBBB432680BCA10B5E2 /* rare-result.wav */; };
 		B23B5CEC7F945BF5C621C19F /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5A4D959BF7A47571DD5E5 /* AppDependencies.swift */; };
+		C4D0B1A3E7F34D22A8C1B9F0 /* PlatformClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D0B1A2E7F34D22A8C1B9F0 /* PlatformClients.swift */; };
 		D3DD138826D4CA57817E2B65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0529367544C633A62F5BDCFD /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +25,7 @@
 		43F5A4D959BF7A47571DD5E5 /* AppDependencies.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDependencies.swift; path = ../Sources/SixSevenApp/AppDependencies.swift; sourceTree = "<group>"; };
 		45436CBBB432680BCA10B5E2 /* rare-result.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = "rare-result.wav"; path = "../../Sources/SixSevenApp/Resources/Audio/rare-result.wav"; sourceTree = "<group>"; };
 		5BE1BE383F9CF862BA5F3EE0 /* SixSeven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixSeven.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4D0B1A2E7F34D22A8C1B9F0 /* PlatformClients.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlatformClients.swift; path = ../Sources/SixSevenApp/PlatformClients.swift; sourceTree = "<group>"; };
 		7C61135B26A02090F44C2910 /* SixSevenApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SixSevenApp.swift; path = ../Sources/SixSevenApp/SixSevenApp.swift; sourceTree = "<group>"; };
 		D5F0FF63DB02AC32713CBFCB /* flip.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = flip.wav; path = ../../Sources/SixSevenApp/Resources/Audio/flip.wav; sourceTree = "<group>"; };
 		DE9C23ABA6E48BBE1DDA8DD5 /* result.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = result.wav; path = ../../Sources/SixSevenApp/Resources/Audio/result.wav; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 			children = (
 				7C61135B26A02090F44C2910 /* SixSevenApp.swift */,
 				43F5A4D959BF7A47571DD5E5 /* AppDependencies.swift */,
+				C4D0B1A2E7F34D22A8C1B9F0 /* PlatformClients.swift */,
 				16E376727C8C055ECFA4F2A2 /* Resources */,
 			);
 			name = SixSevenApp;
@@ -178,6 +181,7 @@
 			files = (
 				5B7068B8C81AC1ABC89E4CD4 /* SixSevenApp.swift in Sources */,
 				B23B5CEC7F945BF5C621C19F /* AppDependencies.swift in Sources */,
+				C4D0B1A3E7F34D22A8C1B9F0 /* PlatformClients.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +245,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -316,7 +320,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
