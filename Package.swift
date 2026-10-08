@@ -10,11 +10,13 @@ let package = Package(
     ],
     products: [
         .library(name: "SixSevenCore", targets: ["SixSevenCore"]),
-        .library(name: "SixSevenUI", targets: ["SixSevenUI"])
+        .library(name: "SixSevenUI", targets: ["SixSevenUI"]),
+        .executable(name: "SixSevenApp", targets: ["SixSevenApp"])
     ],
     targets: [
         .target(name: "SixSevenCore"),
         .target(name: "SixSevenUI", dependencies: ["SixSevenCore"]),
+        .executableTarget(name: "SixSevenApp", dependencies: ["SixSevenCore", "SixSevenUI"]),
         .testTarget(name: "SixSevenCoreTests", dependencies: ["SixSevenCore"])
     ]
 )
