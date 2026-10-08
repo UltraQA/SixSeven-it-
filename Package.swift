@@ -17,6 +17,6 @@ let package = Package(
         .target(name: "SixSevenCore"),
         .target(name: "SixSevenUI", dependencies: ["SixSevenCore"]),
         .executableTarget(name: "SixSevenApp", dependencies: ["SixSevenCore", "SixSevenUI"]),
-        .testTarget(name: "SixSevenCoreTests", dependencies: ["SixSevenCore"])
+        .testTarget(name: "SixSevenCoreTests", dependencies: ["SixSevenCore", "SixSevenUI"])
     ]
 )
