@@ -25,6 +25,44 @@ public protocol AudioClient: Sendable {
     func stop() async
 }
 
+public protocol FlipFeedbackClient: Sendable {
+    func playLaunch() async
+    func playResult(for outcome: Outcome) async
+}
+
+public struct NoOpFlipFeedbackClient: FlipFeedbackClient {
+    public init() {}
+
+    public func playLaunch() async {}
+    public func playResult(for outcome: Outcome) async {}
+}
+
+public struct SystemFlipFeedbackClient: FlipFeedbackClient {
+    private let haptics: any HapticsClient
+    private let audio: any AudioClient
+
+    public init(haptics: any HapticsClient, audio: any AudioClient) {
+        self.haptics = haptics
+        self.audio = audio
+    }
+
+    public func playLaunch() async {
+        await haptics.playLaunch()
+        await audio.playFlip()
+    }
+
+    public func playResult(for outcome: Outcome) async {
+        switch outcome {
+        case .sixtySeven:
+            await haptics.playRareResult()
+            await audio.playRareResult()
+        case .six, .seven:
+            await haptics.playResult()
+            await audio.playResult()
+        }
+    }
+}
+
 public struct NoOpAudioClient: AudioClient {
     public init() {}
 

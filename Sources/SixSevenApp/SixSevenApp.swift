@@ -9,8 +9,20 @@ struct SixSevenApp: App {
             HomeView(
                 provider: WeightedOutcomeProvider(
                     generator: SystemRandomNumberGeneratorAdapter()
-                )
+                ),
+                feedback: feedbackClient
             )
         }
+    }
+
+    private var feedbackClient: any FlipFeedbackClient {
+#if os(iOS)
+        return SystemFlipFeedbackClient(
+            haptics: SystemHapticsClient(),
+            audio: SystemAudioClient()
+        )
+#else
+        return NoOpFlipFeedbackClient()
+#endif
     }
 }

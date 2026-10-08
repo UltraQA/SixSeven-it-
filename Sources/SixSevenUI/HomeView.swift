@@ -4,8 +4,13 @@ import SixSevenCore
 public struct HomeView<Provider: FlipOutcomeProviding>: View {
     @StateObject private var viewModel: HomeViewModel<Provider>
 
-    public init(provider: Provider) {
-        _viewModel = StateObject(wrappedValue: HomeViewModel(provider: provider))
+    public init(
+        provider: Provider,
+        feedback: any FlipFeedbackClient = NoOpFlipFeedbackClient()
+    ) {
+        _viewModel = StateObject(
+            wrappedValue: HomeViewModel(provider: provider, feedback: feedback)
+        )
     }
 
     public var body: some View {

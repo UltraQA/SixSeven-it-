@@ -8,6 +8,7 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
 
     private var provider: Provider
     private let statisticsStore: any StatisticsStore
+    private let feedback: any FlipFeedbackClient
     private let animationDuration: Duration
     private var completionTask: Task<Void, Never>?
     private var loadTask: Task<Void, Never>?
@@ -16,11 +17,13 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
         provider: Provider,
         state: GameState = GameState(),
         statisticsStore: any StatisticsStore = UserDefaultsStatisticsStore(),
+        feedback: any FlipFeedbackClient = NoOpFlipFeedbackClient(),
         animationDuration: Duration = .milliseconds(650)
     ) {
         self.provider = provider
         self.state = state
         self.statisticsStore = statisticsStore
+        self.feedback = feedback
         self.animationDuration = animationDuration
 
         loadTask = Task { [weak self] in
@@ -68,6 +71,7 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
         let outcome = provider.makeOutcome()
         completionTask?.cancel()
         completionTask = Task { [weak self] in
+            await self?.feedback.playLaunch()
             do {
                 try await Task.sleep(for: self?.animationDuration ?? .zero)
             } catch {
@@ -76,6 +80,7 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
 
             guard !Task.isCancelled, let self else { return }
             guard self.state.finishFlip(with: outcome) else { return }
+            await self.feedback.playResult(for: outcome)
 
             do {
                 try await self.statisticsStore.save(self.state.statistics)

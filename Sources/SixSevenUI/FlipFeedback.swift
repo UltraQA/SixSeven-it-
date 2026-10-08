@@ -1,6 +1,6 @@
 import SixSevenCore
 
-public struct FlipFeedback< Haptics: HapticsClient, Audio: AudioClient >: Sendable {
+public struct FlipFeedback<Haptics: HapticsClient, Audio: AudioClient>: FlipFeedbackClient {
     private let haptics: Haptics
     private let audio: Audio
 
