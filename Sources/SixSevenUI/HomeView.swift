@@ -44,6 +44,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                         Image(systemName: "chart.bar")
                     }
                     .accessibilityLabel("Stats")
+                    .accessibilityIdentifier(SixSevenAccessibility.statsButton)
 
                     NavigationLink {
                         SettingsView()
@@ -51,6 +52,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                         Image(systemName: "gearshape")
                     }
                     .accessibilityLabel("Settings")
+                    .accessibilityIdentifier(SixSevenAccessibility.settingsButton)
                 }
             }
             .task {
@@ -91,6 +93,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
         .lineLimit(1...3)
         .submitLabel(.done)
         .disabled(viewModel.isFlipping)
+        .accessibilityIdentifier(SixSevenAccessibility.questionInput)
         .accessibilityLabel("Decision question")
     }
 
@@ -108,6 +111,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
+                    .accessibilityIdentifier(SixSevenAccessibility.shareButton)
                 }
             }
 
@@ -124,6 +128,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
             .disabled(viewModel.isFlipping)
+            .accessibilityIdentifier(SixSevenAccessibility.flipButton)
             .accessibilityHint(viewModel.isFlipping ? "Wait for the result" : "Starts a coin flip")
         }
     }

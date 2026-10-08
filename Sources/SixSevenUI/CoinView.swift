@@ -34,6 +34,7 @@ public struct CoinView: View {
             value: isFlipping
         )
         .accessibilityElement(children: .ignore)
+        .accessibilityIdentifier(SixSevenAccessibility.coin)
         .accessibilityLabel("Coin result")
         .accessibilityValue(accessibilityValue)
     }

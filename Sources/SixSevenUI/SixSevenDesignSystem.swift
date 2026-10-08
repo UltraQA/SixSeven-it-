@@ -1,12 +1,41 @@
 import SwiftUI
 
+#if os(iOS)
+import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
+
 public enum SixSevenColors {
-    public static let background = Color(red: 0.95, green: 0.95, blue: 0.97)
-    public static let surface = Color(red: 1.0, green: 1.0, blue: 1.0)
+    public static var background: Color {
+#if os(iOS)
+        Color(uiColor: .systemGroupedBackground)
+#elseif os(macOS)
+        Color(nsColor: .windowBackgroundColor)
+#endif
+    }
+
+    public static var surface: Color {
+#if os(iOS)
+        Color(uiColor: .secondarySystemGroupedBackground)
+#elseif os(macOS)
+        Color(nsColor: .controlBackgroundColor)
+#endif
+    }
+
     public static let content = Color.primary
     public static let secondaryContent = Color.secondary
     public static let accent = Color.indigo
     public static let rare = Color.orange
+}
+
+public enum SixSevenAccessibility {
+    public static let questionInput = "sixseven.questionInput"
+    public static let coin = "sixseven.coin"
+    public static let flipButton = "sixseven.flipButton"
+    public static let shareButton = "sixseven.shareButton"
+    public static let statsButton = "sixseven.statsButton"
+    public static let settingsButton = "sixseven.settingsButton"
 }
 
 public enum SixSevenSpacing {
