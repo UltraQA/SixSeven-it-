@@ -14,6 +14,21 @@ final class SixSevenAppUITests: XCTestCase {
         XCTAssertTrue(shareButton.waitForExistence(timeout: 3))
     }
 
+    func testQuestionClearsAfterCompletedFlip() {
+        let app = XCUIApplication()
+        app.launch()
+
+        let questionInput = app.textFields["sixseven.questionInput"]
+        XCTAssertTrue(questionInput.waitForExistence(timeout: 3))
+        questionInput.tap()
+        questionInput.typeText("Should I go for it?")
+
+        app.buttons["sixseven.flipButton"].tap()
+
+        XCTAssertTrue(app.buttons["sixseven.shareButton"].waitForExistence(timeout: 3))
+        XCTAssertEqual(questionInput.value as? String, "What are you deciding?")
+    }
+
     func testHomeIsUsableWithDarkModeLargeTextAndReduceMotion() {
         let app = XCUIApplication()
         app.launchArguments += [
