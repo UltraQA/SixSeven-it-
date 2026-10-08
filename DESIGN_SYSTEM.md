@@ -78,7 +78,7 @@ Eyebrow использует небольшое tracking только для к�
 5. Reserved result label `Ready when you are`.
 6. Swipe affordance is the only visible Home trigger; the whole area from the question card downward accepts an upward swipe.
 
-Home не прокручивается в обычном layout: вертикальный swipe обрабатывается viewport-ом Home, поэтому hit-zone включает и пустое пространство под `Share result`, не сдвигая весь экран.
+Home не прокручивается в обычном layout: вертикальный swipe обрабатывается viewport-ом Home, поэтому hit-zone включает и пустое пространство под `Share result`, не сдвигая весь экран. Для этого используется отдельная прозрачная `swipeSurface` с token-based minimum height.
 
 ### Home — result
 

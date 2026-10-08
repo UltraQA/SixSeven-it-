@@ -6,6 +6,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     @StateObject private var settingsViewModel: SettingsViewModel
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @FocusState private var isQuestionFieldFocused: Bool
     private let motionClient: any MotionClient
 
     public init(
@@ -28,69 +29,68 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     }
 
     public var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: SixSevenSpacing.large) {
-                    header
-                    coinInteractionZone
-                }
-                .padding(.horizontal, SixSevenSpacing.standard)
-                .padding(.top, SixSevenSpacing.small)
-                .padding(.bottom, SixSevenSpacing.hero)
-            }
-            .scrollDisabled(!dynamicTypeSize.isAccessibilitySize)
-            .contentShape(Rectangle())
-            .simultaneousGesture(
-                DragGesture(minimumDistance: 24)
-                    .onEnded { value in
-                        guard value.translation.height < -60,
-                              abs(value.translation.height) > abs(value.translation.width) else { return }
-                        viewModel.handleSwipeUp()
+        GeometryReader { proxy in
+            NavigationStack {
+                ScrollView {
+                    VStack(spacing: SixSevenSpacing.large) {
+                        header
+                        coinInteractionZone
+                        swipeSurface
                     }
-            )
-            .background(SixSevenColors.backgroundPrimary.ignoresSafeArea())
+                    .padding(.horizontal, SixSevenSpacing.standard)
+                    .padding(.top, SixSevenSpacing.small)
+                    .padding(.bottom, SixSevenSpacing.hero)
+                    .frame(maxWidth: .infinity, minHeight: proxy.size.height)
+                }
+                .scrollDisabled(!dynamicTypeSize.isAccessibilitySize)
+                .background {
+                    SixSevenColors.backgroundPrimary
+                        .ignoresSafeArea()
+                        .contentShape(Rectangle())
+                }
 #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitleDisplayMode(.inline)
 #endif
-            .toolbar {
-                ToolbarItemGroup(placement: .automatic) {
-                    NavigationLink {
-                        StatsView(statistics: viewModel.statistics)
-                    } label: {
-                        Image(systemName: "chart.bar")
+                .toolbar {
+                    ToolbarItemGroup(placement: .automatic) {
+                        NavigationLink {
+                            StatsView(statistics: viewModel.statistics)
+                        } label: {
+                            Image(systemName: "chart.bar")
+                        }
+                        .accessibilityLabel("Stats")
+                        .accessibilityIdentifier(SixSevenAccessibility.statsButton)
+
+                        NavigationLink {
+                            SettingsView(viewModel: settingsViewModel)
+                        } label: {
+                            Image(systemName: "gearshape")
+                        }
+                        .accessibilityLabel("Settings")
+                        .accessibilityIdentifier(SixSevenAccessibility.settingsButton)
                     }
-                    .accessibilityLabel("Stats")
-                    .accessibilityIdentifier(SixSevenAccessibility.statsButton)
+                }
+                .task {
+                    let events = motionClient.shakeEvents()
+                    await motionClient.start()
+                    await viewModel.refreshSettings()
 
-                    NavigationLink {
-                        SettingsView(viewModel: settingsViewModel)
-                    } label: {
-                        Image(systemName: "gearshape")
+                    for await _ in events {
+                        viewModel.handleShake()
                     }
-                    .accessibilityLabel("Settings")
-                    .accessibilityIdentifier(SixSevenAccessibility.settingsButton)
-                }
-            }
-            .task {
-                let events = motionClient.shakeEvents()
-                await motionClient.start()
-                await viewModel.refreshSettings()
 
-                for await _ in events {
-                    viewModel.handleShake()
+                    await motionClient.stop()
                 }
-
-                await motionClient.stop()
-            }
-            .onChange(of: settingsViewModel.settings) { _, settings in
-                viewModel.apply(settings: settings)
-            }
-            .onDisappear {
-                viewModel.cancelPendingFlip()
-            }
-            .onChange(of: scenePhase) { _, phase in
-                guard phase != .active else { return }
-                viewModel.cancelPendingFlip()
+                .onChange(of: settingsViewModel.settings) { _, settings in
+                    viewModel.apply(settings: settings)
+                }
+                .onDisappear {
+                    viewModel.cancelPendingFlip()
+                }
+                .onChange(of: scenePhase) { _, phase in
+                    guard phase != .active else { return }
+                    viewModel.cancelPendingFlip()
+                }
             }
         }
     }
@@ -139,6 +139,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 .font(SixSevenTypography.body)
                 .lineLimit(1...3)
                 .submitLabel(.done)
+                .focused($isQuestionFieldFocused)
                 .disabled(viewModel.isFlipping)
                 .accessibilityIdentifier(SixSevenAccessibility.questionInput)
                 .accessibilityLabel("Decision question")
@@ -161,16 +162,31 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             coinStage
             actionArea
         }
+        .contentShape(Rectangle())
+        .simultaneousGesture(upwardSwipeGesture)
+    }
+
+    private var swipeSurface: some View {
+        Spacer(minLength: 0)
+            .frame(maxWidth: .infinity, minHeight: SixSevenSwipeMetrics.minimumSurfaceHeight)
+            .background(SixSevenColors.backgroundPrimary.opacity(0.001))
+            .contentShape(Rectangle())
+            .gesture(upwardSwipeGesture)
+            .accessibilityLabel("Swipe up to flip")
+            .accessibilityHint("Swipe up anywhere below the result")
+            .accessibilityIdentifier(SixSevenAccessibility.swipeSurface)
     }
 
     private var coinStage: some View {
         VStack(spacing: SixSevenSpacing.compact) {
             CoinView(
                 outcome: viewModel.currentOutcome,
-                isFlipping: viewModel.isFlipping
+                isFlipping: viewModel.isFlipping,
+                flipCount: viewModel.statistics.totalFlips
             )
             .contentShape(Rectangle())
             .accessibilityHint("Swipe up anywhere below the header to flip")
+            .simultaneousGesture(upwardSwipeGesture)
 
             if viewModel.currentOutcome == nil && !viewModel.isFlipping {
                 Label("Swipe up to flip", systemImage: "arrow.up")
@@ -216,6 +232,16 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     private var result: FlipResult? {
         guard case let .result(result) = viewModel.state.phase else { return nil }
         return result
+    }
+
+    private var upwardSwipeGesture: some Gesture {
+        DragGesture(minimumDistance: 24)
+            .onEnded { value in
+                guard value.translation.height < -60,
+                      abs(value.translation.height) > abs(value.translation.width) else { return }
+                isQuestionFieldFocused = false
+                viewModel.handleSwipeUp()
+            }
     }
 
     private func resultText(for outcome: Outcome) -> String {

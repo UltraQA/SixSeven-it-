@@ -4,14 +4,16 @@ import SixSevenCore
 public struct CoinView: View {
     public let outcome: Outcome?
     public let isFlipping: Bool
+    public let flipCount: Int
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @ScaledMetric(relativeTo: .largeTitle) private var coinDiameter: CGFloat = SixSevenCoinMetrics.diameter
     @ScaledMetric(relativeTo: .largeTitle) private var valueFontSize: CGFloat = 88
 
-    public init(outcome: Outcome?, isFlipping: Bool) {
+    public init(outcome: Outcome?, isFlipping: Bool, flipCount: Int = 0) {
         self.outcome = outcome
         self.isFlipping = isFlipping
+        self.flipCount = flipCount
     }
 
     public var body: some View {
@@ -104,6 +106,7 @@ public struct CoinView: View {
     private var accessibilityValue: String {
         if isFlipping { return "Flipping" }
         guard let outcome else { return "Ready" }
-        return outcome == .sixtySeven ? "SIX SEVEN" : outcome.rawValue
+        let outcomeValue = outcome == .sixtySeven ? "SIX SEVEN" : outcome.rawValue
+        return "\(outcomeValue), flip \(flipCount)"
     }
 }

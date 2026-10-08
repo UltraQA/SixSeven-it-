@@ -91,6 +91,10 @@ public enum SixSevenQuestionMetrics {
     public static let maxLength = 80
 }
 
+public enum SixSevenSwipeMetrics {
+    public static let minimumSurfaceHeight: CGFloat = 240
+}
+
 public struct SixSevenCard<Content: View>: View {
     private let content: Content
 
@@ -137,6 +141,7 @@ public enum SixSevenAccessibility {
     public static let statsButton = "sixseven.statsButton"
     public static let settingsButton = "sixseven.settingsButton"
     public static let resultSummary = "sixseven.resultSummary"
+    public static let swipeSurface = "sixseven.swipeSurface"
 }
 
 #if os(iOS)
