@@ -6,6 +6,8 @@ public struct CoinView: View {
     public let isFlipping: Bool
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ScaledMetric(relativeTo: .largeTitle) private var coinDiameter: CGFloat = 220
+    @ScaledMetric(relativeTo: .largeTitle) private var valueFontSize: CGFloat = 88
 
     public init(outcome: Outcome?, isFlipping: Bool) {
         self.outcome = outcome
@@ -20,11 +22,11 @@ public struct CoinView: View {
                 .shadow(color: .black.opacity(0.18), radius: 16, y: 8)
 
             Text(displayValue)
-                .font(.system(size: 88, weight: .black, design: .rounded))
+                .font(.system(size: valueFontSize, weight: .black, design: .rounded))
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
         }
-        .frame(width: 220, height: 220)
+        .frame(width: coinDiameter, height: coinDiameter)
         .rotation3DEffect(
             .degrees(isFlipping && !reduceMotion ? 720 : 0),
             axis: (x: 0, y: 1, z: 0)
