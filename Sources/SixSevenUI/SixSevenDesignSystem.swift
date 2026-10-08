@@ -60,6 +60,13 @@ public enum SixSevenRadius {
     public static let hero: CGFloat = 24
 }
 
+public enum SixSevenCoinMetrics {
+    public static let borderWidth: CGFloat = 4
+    public static let shadowRadius: CGFloat = 16
+    public static let shadowYOffset: CGFloat = 8
+    public static let rareScale: CGFloat = 1.06
+}
+
 public enum SixSevenAccessibility {
     public static let questionInput = "sixseven.questionInput"
     public static let coin = "sixseven.coin"
