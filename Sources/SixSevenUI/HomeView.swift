@@ -5,6 +5,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     @StateObject private var viewModel: HomeViewModel<Provider>
     @StateObject private var settingsViewModel: SettingsViewModel
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     private let motionClient: any MotionClient
 
     public init(
@@ -37,6 +38,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 .padding(.top, SixSevenSpacing.small)
                 .padding(.bottom, SixSevenSpacing.hero)
             }
+            .scrollDisabled(!dynamicTypeSize.isAccessibilitySize)
             .background(SixSevenColors.backgroundPrimary.ignoresSafeArea())
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
