@@ -136,6 +136,8 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                     .accessibilityAddTraits(.isHeader)
 
                 if let result {
+                    resultSummary(for: result)
+
                     ShareLink(item: SharePayload.text(for: result)) {
                         Label("Share result", systemImage: "square.and.arrow.up")
                             .frame(maxWidth: .infinity)
@@ -160,6 +162,27 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             .disabled(viewModel.isFlipping)
             .accessibilityIdentifier(SixSevenAccessibility.flipButton)
             .accessibilityHint(viewModel.isFlipping ? "Wait for the result" : "Starts a coin flip")
+        }
+    }
+
+    @ViewBuilder
+    private func resultSummary(for result: FlipResult) -> some View {
+        if let question = result.question {
+            VStack(alignment: .leading, spacing: SixSevenSpacing.small) {
+                Text("Your question")
+                    .font(SixSevenTypography.caption)
+                    .foregroundStyle(SixSevenColors.contentSecondary)
+
+                Text(question)
+                    .font(SixSevenTypography.body)
+                    .foregroundStyle(SixSevenColors.contentPrimary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(SixSevenSpacing.standard)
+            .background(SixSevenColors.surfaceElevated)
+            .clipShape(RoundedRectangle(cornerRadius: SixSevenRadius.card))
+            .accessibilityElement(children: .combine)
+            .accessibilityIdentifier(SixSevenAccessibility.resultSummary)
         }
     }
 

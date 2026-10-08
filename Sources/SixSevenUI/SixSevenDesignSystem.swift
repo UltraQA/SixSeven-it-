@@ -74,6 +74,7 @@ public enum SixSevenAccessibility {
     public static let shareButton = "sixseven.shareButton"
     public static let statsButton = "sixseven.statsButton"
     public static let settingsButton = "sixseven.settingsButton"
+    public static let resultSummary = "sixseven.resultSummary"
 }
 
 public enum SixSevenSpacing {
