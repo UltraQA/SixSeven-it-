@@ -82,6 +82,11 @@ public enum SixSevenCoinMetrics {
     public static let rareScale: CGFloat = 1.06
 }
 
+public enum SixSevenTiming {
+    public static let flipAnimation: Duration = .milliseconds(650)
+    public static let resultCooldown: Duration = .milliseconds(350)
+}
+
 public struct SixSevenCard<Content: View>: View {
     private let content: Content
 

@@ -178,9 +178,9 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(SixSevenPrimaryButtonStyle())
-            .disabled(viewModel.isFlipping)
+            .disabled(viewModel.isFlipInteractionLocked)
             .accessibilityIdentifier(SixSevenAccessibility.flipButton)
-            .accessibilityHint(viewModel.isFlipping ? "Wait for the result" : "Starts a coin flip")
+            .accessibilityHint(viewModel.isFlipInteractionLocked ? "Wait a moment before flipping again" : "Starts a coin flip")
 
             if let result {
                 ShareLink(item: SharePayload.text(for: result)) {

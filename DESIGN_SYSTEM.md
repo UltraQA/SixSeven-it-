@@ -98,6 +98,7 @@ Native `Form`: `Sound Effects`, `Motion Control`, затем короткое о
 
 - При `Reduce Motion` coin не делает 3D spin; остаётся короткий state transition.
 - `67` усиливается scale/sparkle только визуально; текст и haptic — отдельные fallback-safe каналы.
+- После показа результата действует короткий `SixSevenTiming.resultCooldown` (`350ms`): он блокирует повторный flip, swipe и shake, чтобы пользователь успел считать outcome.
 - Swipe — дополнительный affordance, primary control всегда доступен кнопкой.
 - Coin — один accessibility element с value `Ready`, `Flipping`, `6`, `7` или `SIX SEVEN`.
 - Не использовать цвет как единственный сигнал; текст результата и форма UI обязательны.

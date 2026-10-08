@@ -113,7 +113,8 @@ final class HomeViewModelTests: XCTestCase {
             provider: SequenceOutcomeProvider(outcomes: [.six, .seven]),
             statisticsStore: TestStatisticsStore(),
             settingsStore: TestSettingsStore(),
-            animationDuration: .zero
+            animationDuration: .zero,
+            resultCooldownDuration: .zero
         )
 
         viewModel.flip()
@@ -127,6 +128,29 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.statistics.totalFlips, 2)
         XCTAssertEqual(viewModel.statistics.sixCount, 1)
         XCTAssertEqual(viewModel.statistics.sevenCount, 1)
+    }
+
+    func testResultCooldownBlocksImmediateSecondFlip() async {
+        let viewModel = HomeViewModel(
+            provider: SequenceOutcomeProvider(outcomes: [.six, .seven]),
+            statisticsStore: TestStatisticsStore(),
+            settingsStore: TestSettingsStore(),
+            animationDuration: .zero,
+            resultCooldownDuration: .seconds(1)
+        )
+
+        viewModel.flip()
+        await yieldToPendingTasks()
+
+        XCTAssertEqual(viewModel.currentOutcome, .six)
+        XCTAssertTrue(viewModel.isResultCoolingDown)
+
+        viewModel.flipAgain()
+        await yieldToPendingTasks()
+
+        XCTAssertEqual(viewModel.statistics.totalFlips, 1)
+        XCTAssertFalse(viewModel.isFlipping)
+        viewModel.cancelPendingFlip()
     }
 
     private func yieldToPendingTasks() async {

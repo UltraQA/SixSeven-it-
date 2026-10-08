@@ -6,13 +6,16 @@ import SixSevenCore
 public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObject {
     @Published public private(set) var state: GameState
     @Published public private(set) var settings: AppSettings = .defaults
+    @Published public private(set) var isResultCoolingDown = false
 
     private var provider: Provider
     private let statisticsStore: any StatisticsStore
     private let settingsStore: any SettingsStore
     private let feedback: any FlipFeedbackClient
     private let animationDuration: Duration
+    private let resultCooldownDuration: Duration
     private var completionTask: Task<Void, Never>?
+    private var resultCooldownTask: Task<Void, Never>?
     private var loadTask: Task<Void, Never>?
 
     public init(
@@ -21,7 +24,8 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
         statisticsStore: any StatisticsStore = UserDefaultsStatisticsStore(),
         settingsStore: any SettingsStore = UserDefaultsSettingsStore(),
         feedback: any FlipFeedbackClient = NoOpFlipFeedbackClient(),
-        animationDuration: Duration = .milliseconds(650)
+        animationDuration: Duration = SixSevenTiming.flipAnimation,
+        resultCooldownDuration: Duration = SixSevenTiming.resultCooldown
     ) {
         self.provider = provider
         self.state = state
@@ -29,6 +33,7 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
         self.settingsStore = settingsStore
         self.feedback = feedback
         self.animationDuration = animationDuration
+        self.resultCooldownDuration = resultCooldownDuration
 
         loadTask = Task { [weak self] in
             guard let self else { return }
@@ -50,6 +55,7 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
 
     deinit {
         completionTask?.cancel()
+        resultCooldownTask?.cancel()
         loadTask?.cancel()
     }
 
@@ -62,6 +68,10 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
         state.phase == .flipping
     }
 
+    public var isFlipInteractionLocked: Bool {
+        isFlipping || isResultCoolingDown
+    }
+
     public var currentOutcome: Outcome? {
         guard case let .result(result) = state.phase else { return nil }
         return result.outcome
@@ -72,6 +82,7 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
     }
 
     public func flip() {
+        guard !isResultCoolingDown else { return }
         guard state.beginFlip() else { return }
 
         let outcome = provider.makeOutcome()
@@ -91,6 +102,7 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
             guard !Task.isCancelled, let self else { return }
             guard self.state.finishFlip(with: outcome) else { return }
             self.state.question = ""
+            self.beginResultCooldown()
             await self.feedback.playResult(
                 for: outcome,
                 soundEffectsEnabled: self.settings.soundEffectsEnabled
@@ -121,6 +133,7 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
     }
 
     public func handleSwipeUp() {
+        guard !isResultCoolingDown else { return }
         if currentOutcome == nil {
             flip()
         } else {
@@ -129,6 +142,7 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
     }
 
     public func flipAgain() {
+        guard !isResultCoolingDown else { return }
         guard case .result = state.phase else { return }
         state.reset()
         flip()
@@ -137,6 +151,32 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
     public func cancelPendingFlip() {
         completionTask?.cancel()
         completionTask = nil
+        resultCooldownTask?.cancel()
+        resultCooldownTask = nil
+        isResultCoolingDown = false
         _ = state.cancelFlip()
+    }
+
+    private func beginResultCooldown() {
+        resultCooldownTask?.cancel()
+
+        guard resultCooldownDuration != .zero else {
+            resultCooldownTask = nil
+            isResultCoolingDown = false
+            return
+        }
+
+        isResultCoolingDown = true
+        resultCooldownTask = Task { [weak self, resultCooldownDuration] in
+            do {
+                try await Task.sleep(for: resultCooldownDuration)
+            } catch {
+                return
+            }
+
+            guard !Task.isCancelled else { return }
+            self?.isResultCoolingDown = false
+            self?.resultCooldownTask = nil
+        }
     }
 }
