@@ -108,6 +108,27 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(result.question, "Should I go?")
     }
 
+    func testFlipAgainCompletesSecondFlipAndRecordsItOnce() async {
+        let viewModel = HomeViewModel(
+            provider: SequenceOutcomeProvider(outcomes: [.six, .seven]),
+            statisticsStore: TestStatisticsStore(),
+            settingsStore: TestSettingsStore(),
+            animationDuration: .zero
+        )
+
+        viewModel.flip()
+        await yieldToPendingTasks()
+        XCTAssertEqual(viewModel.currentOutcome, .six)
+
+        viewModel.flipAgain()
+        await yieldToPendingTasks()
+
+        XCTAssertEqual(viewModel.currentOutcome, .seven)
+        XCTAssertEqual(viewModel.statistics.totalFlips, 2)
+        XCTAssertEqual(viewModel.statistics.sixCount, 1)
+        XCTAssertEqual(viewModel.statistics.sevenCount, 1)
+    }
+
     private func yieldToPendingTasks() async {
         for _ in 0..<20 {
             await Task.yield()
