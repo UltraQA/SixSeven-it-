@@ -44,13 +44,27 @@ jobs:
       - name: Show available simulators
         run: xcrun simctl list devices available
 
+      - name: Select an available iPhone simulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          simulator_id="$(xcrun simctl list devices available \
+            | grep -m1 -E 'iPhone .* \([A-F0-9-]{36}\)' \
+            | sed -E 's/.*\(([A-F0-9-]{36})\).*/\1/')"
+          if [[ -z "$simulator_id" ]]; then
+            echo "No available iPhone simulator was found" >&2
+            exit 1
+          fi
+          echo "Using simulator: $simulator_id"
+          echo "SIMULATOR_ID=$simulator_id" >> "$GITHUB_ENV"
+
       - name: Build and test native app
         run: >-
           xcodebuild
           -project SixSeven.xcodeproj
           -scheme SixSeven
           -sdk iphonesimulator
-          -destination 'platform=iOS Simulator,name=iPhone 16'
+          -destination "platform=iOS Simulator,id=$SIMULATOR_ID"
           -derivedDataPath "$RUNNER_TEMP/SixSevenDerivedData"
           test
 

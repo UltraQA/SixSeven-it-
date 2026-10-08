@@ -20,7 +20,7 @@ See [GAME_DESIGN.md](GAME_DESIGN.md) for the product specification and [ARCHITEC
 
 ## CI
 
-GitHub Actions runs SwiftPM tests and the native iOS simulator test scheme for pushes and pull requests targeting `main`. Failed Xcode test results are uploaded as a workflow artifact when available.
+GitHub Actions runs SwiftPM tests and the native iOS simulator test scheme for pushes and pull requests targeting `main`. The workflow selects an available iPhone simulator dynamically, so it does not depend on one particular Xcode device name. Failed Xcode test results are uploaded as a workflow artifact when available.
 
 ## Status
 
