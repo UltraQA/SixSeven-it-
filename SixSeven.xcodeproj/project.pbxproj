@@ -1,0 +1,389 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		25CE3D24D04486ABF0CF4016 /* SixSevenUI in Frameworks */ = {isa = PBXBuildFile; productRef = 0F137B8E9521989F81A14B17 /* SixSevenUI */; };
+		2E488BDE21B08F7B8DC8024B /* SixSevenCore in Frameworks */ = {isa = PBXBuildFile; productRef = CF878A3EAA25438124A67107 /* SixSevenCore */; };
+		327511678F0753D0D65EC5E0 /* coin-placeholder.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2694F5717EDA4C686E43F50A /* coin-placeholder.svg */; };
+		57CE3F9A1514548A4F6E9A9B /* result.wav in Resources */ = {isa = PBXBuildFile; fileRef = DE9C23ABA6E48BBE1DDA8DD5 /* result.wav */; };
+		5B7068B8C81AC1ABC89E4CD4 /* SixSevenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C61135B26A02090F44C2910 /* SixSevenApp.swift */; };
+		61EFCD1D8F23D31022FD350F /* flip.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5F0FF63DB02AC32713CBFCB /* flip.wav */; };
+		79B4A272F7B0681BD644D0E9 /* rare-result.wav in Resources */ = {isa = PBXBuildFile; fileRef = 45436CBBB432680BCA10B5E2 /* rare-result.wav */; };
+		B23B5CEC7F945BF5C621C19F /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5A4D959BF7A47571DD5E5 /* AppDependencies.swift */; };
+		D3DD138826D4CA57817E2B65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0529367544C633A62F5BDCFD /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0529367544C633A62F5BDCFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		2694F5717EDA4C686E43F50A /* coin-placeholder.svg */ = {isa = PBXFileReference; includeInIndex = 1; name = "coin-placeholder.svg"; path = "../../Sources/SixSevenApp/Resources/Art/coin-placeholder.svg"; sourceTree = "<group>"; };
+		43F5A4D959BF7A47571DD5E5 /* AppDependencies.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDependencies.swift; path = ../Sources/SixSevenApp/AppDependencies.swift; sourceTree = "<group>"; };
+		45436CBBB432680BCA10B5E2 /* rare-result.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = "rare-result.wav"; path = "../../Sources/SixSevenApp/Resources/Audio/rare-result.wav"; sourceTree = "<group>"; };
+		5BE1BE383F9CF862BA5F3EE0 /* SixSeven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixSeven.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C61135B26A02090F44C2910 /* SixSevenApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SixSevenApp.swift; path = ../Sources/SixSevenApp/SixSevenApp.swift; sourceTree = "<group>"; };
+		D5F0FF63DB02AC32713CBFCB /* flip.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = flip.wav; path = ../../Sources/SixSevenApp/Resources/Audio/flip.wav; sourceTree = "<group>"; };
+		DE9C23ABA6E48BBE1DDA8DD5 /* result.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = result.wav; path = ../../Sources/SixSevenApp/Resources/Audio/result.wav; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		211E0D34AC8C85971C173333 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3DD138826D4CA57817E2B65 /* Foundation.framework in Frameworks */,
+				2E488BDE21B08F7B8DC8024B /* SixSevenCore in Frameworks */,
+				25CE3D24D04486ABF0CF4016 /* SixSevenUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		010CBE0AFFF9B43EB1F83E23 /* SixSevenApp */ = {
+			isa = PBXGroup;
+			children = (
+				7C61135B26A02090F44C2910 /* SixSevenApp.swift */,
+				43F5A4D959BF7A47571DD5E5 /* AppDependencies.swift */,
+				16E376727C8C055ECFA4F2A2 /* Resources */,
+			);
+			name = SixSevenApp;
+			path = SixSevenApp;
+			sourceTree = "<group>";
+		};
+		0D84620462CB85081FB78CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5BE1BE383F9CF862BA5F3EE0 /* SixSeven.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		16E376727C8C055ECFA4F2A2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2694F5717EDA4C686E43F50A /* coin-placeholder.svg */,
+				DE9C23ABA6E48BBE1DDA8DD5 /* result.wav */,
+				D5F0FF63DB02AC32713CBFCB /* flip.wav */,
+				45436CBBB432680BCA10B5E2 /* rare-result.wav */,
+			);
+			name = Resources;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		23C381E04410E11091248DF6 = {
+			isa = PBXGroup;
+			children = (
+				0D84620462CB85081FB78CBB /* Products */,
+				A2392A2E95E36E25A38CA32F /* Frameworks */,
+				010CBE0AFFF9B43EB1F83E23 /* SixSevenApp */,
+			);
+			sourceTree = "<group>";
+		};
+		4ABDBA5216C2E98BE6700822 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				0529367544C633A62F5BDCFD /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		A2392A2E95E36E25A38CA32F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4ABDBA5216C2E98BE6700822 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3C1AAB4F0724A41176C54FBB /* SixSeven */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6BFCC9E874CA4CF0C8875D73 /* Build configuration list for PBXNativeTarget "SixSeven" */;
+			buildPhases = (
+				F2A700CAC83CA72BD1CE925E /* Sources */,
+				211E0D34AC8C85971C173333 /* Frameworks */,
+				2D3740FF8B754A92AFD9A4C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SixSeven;
+			packageProductDependencies = (
+				CF878A3EAA25438124A67107 /* SixSevenCore */,
+				0F137B8E9521989F81A14B17 /* SixSevenUI */,
+			);
+			productName = SixSeven;
+			productReference = 5BE1BE383F9CF862BA5F3EE0 /* SixSeven.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C5B2F4EFBB70E0337C284B9D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 250131118B1882DB63A01704 /* Build configuration list for PBXProject "SixSeven" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 23C381E04410E11091248DF6;
+			minimizedProjectReferenceProxies = 0;
+			packageReferences = (
+				7376E670B404F969AA6E2177 /* XCLocalSwiftPackageReference "." */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0D84620462CB85081FB78CBB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3C1AAB4F0724A41176C54FBB /* SixSeven */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2D3740FF8B754A92AFD9A4C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				327511678F0753D0D65EC5E0 /* coin-placeholder.svg in Resources */,
+				57CE3F9A1514548A4F6E9A9B /* result.wav in Resources */,
+				61EFCD1D8F23D31022FD350F /* flip.wav in Resources */,
+				79B4A272F7B0681BD644D0E9 /* rare-result.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F2A700CAC83CA72BD1CE925E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B7068B8C81AC1ABC89E4CD4 /* SixSevenApp.swift in Sources */,
+				B23B5CEC7F945BF5C621C19F /* AppDependencies.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		703B4E0693BCC7BC6B4067F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		88FFA14B6ACE49179579F7E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "SixSeven it!";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ultraqa.sixseven;
+				PRODUCT_NAME = SixSeven;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		938C3E330E12DC02D5A14EA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		D41AE5C6844314246674A2B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "SixSeven it!";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ultraqa.sixseven;
+				PRODUCT_NAME = SixSeven;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		250131118B1882DB63A01704 /* Build configuration list for PBXProject "SixSeven" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				703B4E0693BCC7BC6B4067F3 /* Debug */,
+				938C3E330E12DC02D5A14EA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6BFCC9E874CA4CF0C8875D73 /* Build configuration list for PBXNativeTarget "SixSeven" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D41AE5C6844314246674A2B3 /* Release */,
+				88FFA14B6ACE49179579F7E7 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		7376E670B404F969AA6E2177 /* XCLocalSwiftPackageReference "." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = .;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0F137B8E9521989F81A14B17 /* SixSevenUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7376E670B404F969AA6E2177 /* XCLocalSwiftPackageReference "." */;
+			productName = SixSevenUI;
+		};
+		CF878A3EAA25438124A67107 /* SixSevenCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7376E670B404F969AA6E2177 /* XCLocalSwiftPackageReference "." */;
+			productName = SixSevenCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = C5B2F4EFBB70E0337C284B9D /* Project object */;
+}
