@@ -20,6 +20,8 @@ public struct StatsView: View {
                 statRow("6", value: statistics.sixCount)
                 statRow("7", value: statistics.sevenCount)
                 statRow("67", value: statistics.sixtySevenCount)
+                statRow("Current 67 streak", value: statistics.currentSixtySevenStreak)
+                statRow("Best 67 streak", value: statistics.bestSixtySevenStreak)
             }
         }
         .navigationTitle("Stats")

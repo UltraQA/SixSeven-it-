@@ -15,5 +15,18 @@ final class StatisticsTests: XCTestCase {
         XCTAssertEqual(statistics.sixtySevenCount, 1)
         XCTAssertEqual(statistics.currentStreak, 3)
         XCTAssertEqual(statistics.bestStreak, 3)
+        XCTAssertEqual(statistics.currentSixtySevenStreak, 1)
+        XCTAssertEqual(statistics.bestSixtySevenStreak, 1)
+    }
+
+    func testRareStreakResetsAfterCommonOutcome() {
+        var statistics = Statistics.empty
+
+        statistics.record(.sixtySeven)
+        statistics.record(.sixtySeven)
+        statistics.record(.six)
+
+        XCTAssertEqual(statistics.currentSixtySevenStreak, 0)
+        XCTAssertEqual(statistics.bestSixtySevenStreak, 2)
     }
 }
