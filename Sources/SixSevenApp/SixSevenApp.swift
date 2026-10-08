@@ -4,34 +4,16 @@ import SixSevenUI
 
 @main
 struct SixSevenApp: App {
+    private let dependencies = AppDependencies()
+
     var body: some Scene {
         WindowGroup {
             HomeView(
-                provider: WeightedOutcomeProvider(
-                    generator: SystemRandomNumberGeneratorAdapter()
-                ),
-                feedback: feedbackClient,
-                motionClient: motionClient
+                provider: dependencies.outcomeProvider,
+                feedback: dependencies.feedback,
+                motionClient: dependencies.motion,
+                settingsStore: dependencies.settingsStore
             )
         }
-    }
-
-    private var feedbackClient: any FlipFeedbackClient {
-#if os(iOS)
-        return SystemFlipFeedbackClient(
-            haptics: SystemHapticsClient(),
-            audio: SystemAudioClient()
-        )
-#else
-        return NoOpFlipFeedbackClient()
-#endif
-    }
-
-    private var motionClient: any MotionClient {
-#if os(iOS)
-        return SystemMotionClient()
-#else
-        return NoOpMotionClient()
-#endif
     }
 }
