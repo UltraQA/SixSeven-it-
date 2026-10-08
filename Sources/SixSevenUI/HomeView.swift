@@ -39,6 +39,15 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 .padding(.bottom, SixSevenSpacing.hero)
             }
             .scrollDisabled(!dynamicTypeSize.isAccessibilitySize)
+            .contentShape(Rectangle())
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 24)
+                    .onEnded { value in
+                        guard value.translation.height < -60,
+                              abs(value.translation.height) > abs(value.translation.width) else { return }
+                        viewModel.handleSwipeUp()
+                    }
+            )
             .background(SixSevenColors.backgroundPrimary.ignoresSafeArea())
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
@@ -152,15 +161,6 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             coinStage
             actionArea
         }
-        .contentShape(Rectangle())
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 24)
-                .onEnded { value in
-                    guard value.translation.height < -60,
-                          abs(value.translation.height) > abs(value.translation.width) else { return }
-                    viewModel.handleSwipeUp()
-                }
-        )
     }
 
     private var coinStage: some View {
