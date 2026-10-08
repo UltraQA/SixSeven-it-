@@ -191,18 +191,19 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             if viewModel.currentOutcome == nil && !viewModel.isFlipping {
                 HStack(spacing: SixSevenSpacing.small) {
                     Image(systemName: "arrow.up")
-                        .offset(y: isSwipeHintPulsing && !reduceMotion ? -4 : 0)
+                        .frame(width: SixSevenSpacing.standard, height: SixSevenSpacing.standard)
+                        .scaleEffect(isSwipeHintPulsing && !reduceMotion ? 1.15 : 1)
+                        .animation(
+                            reduceMotion
+                                ? nil
+                                : .easeInOut(duration: 0.9).repeatForever(autoreverses: true),
+                            value: isSwipeHintPulsing
+                        )
                     Text("Swipe up to flip")
                 }
                     .font(SixSevenTypography.caption)
                     .foregroundStyle(SixSevenColors.contentSecondary)
                     .accessibilityHidden(true)
-                    .animation(
-                        reduceMotion
-                            ? nil
-                            : .easeInOut(duration: 0.9).repeatForever(autoreverses: true),
-                        value: isSwipeHintPulsing
-                    )
                     .onAppear {
                         isSwipeHintPulsing = !reduceMotion
                     }
