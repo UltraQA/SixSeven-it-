@@ -87,6 +87,10 @@ public enum SixSevenTiming {
     public static let resultCooldown: Duration = .milliseconds(1_250)
 }
 
+public enum SixSevenQuestionMetrics {
+    public static let maxLength = 80
+}
+
 public struct SixSevenCard<Content: View>: View {
     private let content: Content
 

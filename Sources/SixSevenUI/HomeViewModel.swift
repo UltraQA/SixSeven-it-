@@ -61,7 +61,7 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
 
     public var question: String {
         get { state.question }
-        set { state.question = newValue }
+        set { state.question = String(newValue.prefix(SixSevenQuestionMetrics.maxLength)) }
     }
 
     public var isFlipping: Bool {

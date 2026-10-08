@@ -36,7 +36,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                     actionArea
                 }
                 .padding(.horizontal, SixSevenSpacing.standard)
-                .padding(.top, SixSevenSpacing.large)
+                .padding(.top, SixSevenSpacing.small)
                 .padding(.bottom, SixSevenSpacing.hero)
             }
             .background(SixSevenColors.backgroundPrimary.ignoresSafeArea())
@@ -95,9 +95,18 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             Text("Sixseven it.")
                 .font(SixSevenTypography.hero)
                 .foregroundStyle(SixSevenColors.contentPrimary)
-            Text("Let the numbers make the call.")
-                .font(SixSevenTypography.callout)
-                .foregroundStyle(SixSevenColors.contentSecondary)
+            if let question = result?.question, !question.isEmpty {
+                Text("“\(question)”")
+                    .font(SixSevenTypography.callout)
+                    .foregroundStyle(SixSevenColors.contentSecondary)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.85)
+                    .frame(maxWidth: .infinity)
+            } else {
+                Text("Let the numbers make the call.")
+                    .font(SixSevenTypography.callout)
+                    .foregroundStyle(SixSevenColors.contentSecondary)
+            }
         }
         .multilineTextAlignment(.center)
     }
@@ -124,6 +133,15 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 .disabled(viewModel.isFlipping)
                 .accessibilityIdentifier(SixSevenAccessibility.questionInput)
                 .accessibilityLabel("Decision question")
+
+                HStack {
+                    Spacer()
+                    Text("\(viewModel.question.count)/\(SixSevenQuestionMetrics.maxLength)")
+                        .font(SixSevenTypography.caption)
+                        .foregroundStyle(SixSevenColors.contentSecondary)
+                        .monospacedDigit()
+                        .accessibilityLabel("\(viewModel.question.count) of \(SixSevenQuestionMetrics.maxLength) characters")
+                }
             }
         }
     }
@@ -157,12 +175,6 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     private var actionArea: some View {
         VStack(spacing: SixSevenSpacing.standard) {
             resultLabel
-
-            if viewModel.currentOutcome != nil {
-                if let result {
-                    resultSummary(for: result)
-                }
-            }
 
             Button {
                 if viewModel.currentOutcome == nil {
@@ -208,32 +220,6 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             }
         }
         .frame(maxWidth: .infinity, minHeight: 32)
-    }
-
-    @ViewBuilder
-    private func resultSummary(for result: FlipResult) -> some View {
-        if let question = result.question {
-            VStack(alignment: .leading, spacing: SixSevenSpacing.small) {
-                Text("Your question")
-                    .font(SixSevenTypography.eyebrow)
-                    .tracking(1.1)
-                    .foregroundStyle(SixSevenColors.contentSecondary)
-
-                Text(question)
-                    .font(SixSevenTypography.body)
-                    .foregroundStyle(SixSevenColors.contentPrimary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .padding(SixSevenSpacing.standard)
-            .background(SixSevenColors.surfaceElevated)
-            .clipShape(RoundedRectangle(cornerRadius: SixSevenRadius.card, style: .continuous))
-            .overlay {
-                RoundedRectangle(cornerRadius: SixSevenRadius.card, style: .continuous)
-                    .stroke(SixSevenColors.separator.opacity(0.7), lineWidth: 1)
-            }
-            .accessibilityElement(children: .combine)
-            .accessibilityIdentifier(SixSevenAccessibility.resultSummary)
-        }
     }
 
     private var result: FlipResult? {

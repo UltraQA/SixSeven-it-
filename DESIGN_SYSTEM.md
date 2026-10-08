@@ -46,7 +46,7 @@ Eyebrow использует небольшое tracking только для к�
 Базовая spacing scale: `4 / 8 / 12 / 16 / 24 / 32 / 48pt`.
 
 - `control = 16pt`: buttons, text controls, toggles around the content.
-- `card = 24pt`: decision card, result question card, elevated surfaces.
+- `card = 24pt`: decision card and elevated surfaces.
 - `hero = 32pt`: reserved for future large hero containers.
 - Минимальная интерактивная область — `44×44pt`; фактическая primary button height — `52pt`.
 - Coin base diameter — `220pt`, масштабируется через `@ScaledMetric`.
@@ -56,7 +56,7 @@ Eyebrow использует небольшое tracking только для к�
 
 | Product component | SwiftUI implementation |
 |---|---|
-| Decision card | `SixSevenCard` + `TextField(axis: .vertical)` |
+| Decision card | `SixSevenCard` + `TextField(axis: .vertical)` + `80`-character counter |
 | Coin renderer | `CoinView` на `Circle`, `LinearGradient`, `rotation3DEffect` |
 | Primary action | `SixSevenPrimaryButtonStyle` |
 | Secondary/share action | `SixSevenSecondaryButtonStyle` + `ShareLink` |
@@ -73,7 +73,7 @@ Eyebrow использует небольшое tracking только для к�
 
 1. Inline navigation title `SixSeven it!`; справа `Stats` и `Settings`.
 2. Centered header: eyebrow `CAN'T DECIDE?`, hero `Sixseven it.`, tagline `Let the numbers make the call.`
-3. Decision card: label `WHAT'S THE MOVE?`, optional multiline input.
+3. Decision card: label `WHAT'S THE MOVE?`, optional multiline input with an `80`-character limit.
 4. Coin stage: neutral coin with `?`, helper `Swipe up to flip`.
 5. Reserved result label `Ready when you are`.
 6. Full-width `Flip it` primary button.
@@ -82,9 +82,10 @@ Eyebrow использует небольшое tracking только для к�
 
 1. Coin показывает выбранный outcome.
 2. Label: `It's a 6`, `It's a 7` или `SIX SEVEN!`.
-3. При наличии вопроса — result question card.
-4. `Flip it!` остаётся на том же месте и используется во всех состояниях.
-5. Ниже появляется `Share result` secondary action.
+3. При наличии вопроса он заменяет tagline под hero, поэтому вопрос не дублируется в отдельной result-карточке.
+4. Input остаётся на том же месте и готов к следующему вопросу; его счётчик показывает `current/80`.
+5. `Flip it!` остаётся на том же месте и используется во всех состояниях.
+6. Ниже появляется `Share result` secondary action.
 
 ### Stats
 
@@ -109,7 +110,7 @@ Native `Form`: `Sound Effects`, `Motion Control`, затем короткое о
 1. Пользователь нажимает `Flip it!` или делает swipe вверх.
 2. `HomeViewModel` один раз выбирает outcome через injected RNG; outcome не зависит от animation.
 3. Запускается coin animation на `SixSevenTiming.flipAnimation` (`650ms`), input блокируется.
-4. После завершения animation показываются outcome, `Share result` и сохранённый вопрос в result summary; input очищается для следующего решения.
+4. После завершения animation показываются outcome и `Share result`; сохранённый вопрос заменяет tagline под hero, а input очищается для следующего решения.
 5. Одновременно запускаются haptic/audio feedback adapters. Их ошибка не влияет на result.
 6. Следующий flip блокируется на `SixSevenTiming.resultCooldown` (`1.25s`). В этот период button, swipe и shake не запускают новый outcome.
 

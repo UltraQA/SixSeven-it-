@@ -153,6 +153,22 @@ final class HomeViewModelTests: XCTestCase {
         viewModel.cancelPendingFlip()
     }
 
+    func testQuestionIsCappedAtMaximumLength() {
+        let viewModel = HomeViewModel(
+            provider: SequenceOutcomeProvider(outcomes: [.six]),
+            statisticsStore: TestStatisticsStore(),
+            settingsStore: TestSettingsStore()
+        )
+        let oversizedQuestion = String(
+            repeating: "a",
+            count: SixSevenQuestionMetrics.maxLength + 20
+        )
+
+        viewModel.question = oversizedQuestion
+
+        XCTAssertEqual(viewModel.question.count, SixSevenQuestionMetrics.maxLength)
+    }
+
     private func yieldToPendingTasks() async {
         for _ in 0..<20 {
             await Task.yield()
