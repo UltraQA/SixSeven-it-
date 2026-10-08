@@ -119,6 +119,16 @@ SixSeven/
 └── SixSevenTests/
 `@
 
+Фактическая текущая раскладка репозитория сохраняет эти границы через Swift Package targets:
+
+- `Sources/SixSevenCore` — domain contracts, state, persistence protocols и no-op system abstractions;
+- `Sources/SixSevenUI` — SwiftUI presentation и `HomeViewModel`;
+- `Sources/SixSevenApp` — composition root, native platform adapters и development resources;
+- `Tests/SixSevenCoreTests` — быстрые package unit tests;
+- `Tests/SixSevenAppTests` — native Xcode test target для simulator execution.
+
+Платформенные Core Haptics, AVFoundation и Core Motion adapters изолированы в app target и реализованы как actors. Это оставляет Core portable и не скрывает mutable platform state за `@unchecked Sendable`.
+
 ## 9. Testing
 
 Unit: probability boundaries, rules validation, deterministic provider, state transitions, streak/statistics, persistence round-trip, question trimming.

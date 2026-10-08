@@ -20,8 +20,8 @@ See [GAME_DESIGN.md](GAME_DESIGN.md) for the product specification and [ARCHITEC
 
 ## Status
 
-MVP implementation is in progress. The current build includes the core game loop, local statistics, settings, native feedback adapters, accessibility tokens, and development resources.
+MVP implementation is in progress. The current build includes the core game loop, local statistics, settings, native feedback adapters, accessibility tokens, a native Xcode app target, and native unit-test coverage. SwiftPM currently reports 21 passing tests; the iOS scheme also runs `SixSevenAppTests` on the simulator.
 
 ## Development assets
 
-The app currently includes short generated WAV placeholders for local development. They are intentionally temporary and should be replaced with licensed final audio without changing resource names. `coin-placeholder.svg` is a temporary visual reference; the MVP coin is rendered natively in SwiftUI.
+The app currently includes short generated WAV placeholders for local development. They are intentionally temporary and should be replaced with licensed final audio without changing resource names. `coin-placeholder.svg` is a temporary visual reference; the MVP coin is rendered natively in SwiftUI. `Assets.xcassets` contains a development AppIcon placeholder and must be replaced with final branded icon assets before App Store submission.

@@ -10,11 +10,14 @@
 		25CE3D24D04486ABF0CF4016 /* SixSevenUI in Frameworks */ = {isa = PBXBuildFile; productRef = 0F137B8E9521989F81A14B17 /* SixSevenUI */; };
 		2E488BDE21B08F7B8DC8024B /* SixSevenCore in Frameworks */ = {isa = PBXBuildFile; productRef = CF878A3EAA25438124A67107 /* SixSevenCore */; };
 		327511678F0753D0D65EC5E0 /* coin-placeholder.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2694F5717EDA4C686E43F50A /* coin-placeholder.svg */; };
+		C4D0B1A4E7F34D22A8C1B9F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4D0B1A5E7F34D22A8C1B9F0 /* Assets.xcassets */; };
 		57CE3F9A1514548A4F6E9A9B /* result.wav in Resources */ = {isa = PBXBuildFile; fileRef = DE9C23ABA6E48BBE1DDA8DD5 /* result.wav */; };
 		5B7068B8C81AC1ABC89E4CD4 /* SixSevenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C61135B26A02090F44C2910 /* SixSevenApp.swift */; };
 		61EFCD1D8F23D31022FD350F /* flip.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5F0FF63DB02AC32713CBFCB /* flip.wav */; };
 		79B4A272F7B0681BD644D0E9 /* rare-result.wav in Resources */ = {isa = PBXBuildFile; fileRef = 45436CBBB432680BCA10B5E2 /* rare-result.wav */; };
 		B23B5CEC7F945BF5C621C19F /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F5A4D959BF7A47571DD5E5 /* AppDependencies.swift */; };
+		39DA6B7F2DCE4E36A8B9C0D1 /* SixSevenAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DA6B7E2DCE4E36A8B9C0D1 /* SixSevenAppTests.swift */; };
+		4AAB4F2A0E6A46D8B9D4D7F1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AAB4F290E6A46D8B9D4D7F1 /* XCTest.framework */; };
 		C4D0B1A3E7F34D22A8C1B9F0 /* PlatformClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D0B1A2E7F34D22A8C1B9F0 /* PlatformClients.swift */; };
 		D3DD138826D4CA57817E2B65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0529367544C633A62F5BDCFD /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -25,7 +28,11 @@
 		43F5A4D959BF7A47571DD5E5 /* AppDependencies.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDependencies.swift; path = ../Sources/SixSevenApp/AppDependencies.swift; sourceTree = "<group>"; };
 		45436CBBB432680BCA10B5E2 /* rare-result.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = "rare-result.wav"; path = "../../Sources/SixSevenApp/Resources/Audio/rare-result.wav"; sourceTree = "<group>"; };
 		5BE1BE383F9CF862BA5F3EE0 /* SixSeven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixSeven.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AAB4F290E6A46D8B9D4D7F1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		39DA6B7E2DCE4E36A8B9C0D1 /* SixSevenAppTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SixSevenAppTests.swift; path = SixSevenAppTests.swift; sourceTree = "<group>"; };
+		39DA6B7D2DCE4E36A8B9C0D1 /* SixSevenAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SixSevenAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4D0B1A2E7F34D22A8C1B9F0 /* PlatformClients.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlatformClients.swift; path = ../Sources/SixSevenApp/PlatformClients.swift; sourceTree = "<group>"; };
+		C4D0B1A5E7F34D22A8C1B9F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Sources/SixSevenApp/Assets.xcassets; sourceTree = "<group>"; };
 		7C61135B26A02090F44C2910 /* SixSevenApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SixSevenApp.swift; path = ../Sources/SixSevenApp/SixSevenApp.swift; sourceTree = "<group>"; };
 		D5F0FF63DB02AC32713CBFCB /* flip.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = flip.wav; path = ../../Sources/SixSevenApp/Resources/Audio/flip.wav; sourceTree = "<group>"; };
 		DE9C23ABA6E48BBE1DDA8DD5 /* result.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = result.wav; path = ../../Sources/SixSevenApp/Resources/Audio/result.wav; sourceTree = "<group>"; };
@@ -42,6 +49,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4AAB4F280E6A46D8B9D4D7F1 /* Test Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AAB4F2A0E6A46D8B9D4D7F1 /* XCTest.framework in Frameworks */,
+				2E488BDE21B08F7B8DC8024B /* SixSevenCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -51,6 +67,7 @@
 				7C61135B26A02090F44C2910 /* SixSevenApp.swift */,
 				43F5A4D959BF7A47571DD5E5 /* AppDependencies.swift */,
 				C4D0B1A2E7F34D22A8C1B9F0 /* PlatformClients.swift */,
+				C4D0B1A5E7F34D22A8C1B9F0 /* Assets.xcassets */,
 				16E376727C8C055ECFA4F2A2 /* Resources */,
 			);
 			name = SixSevenApp;
@@ -61,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				5BE1BE383F9CF862BA5F3EE0 /* SixSeven.app */,
+				39DA6B7D2DCE4E36A8B9C0D1 /* SixSevenAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,13 +101,24 @@
 				0D84620462CB85081FB78CBB /* Products */,
 				A2392A2E95E36E25A38CA32F /* Frameworks */,
 				010CBE0AFFF9B43EB1F83E23 /* SixSevenApp */,
+				39DA6B7C2DCE4E36A8B9C0D1 /* SixSevenAppTests */,
 			);
+			sourceTree = "<group>";
+		};
+		39DA6B7C2DCE4E36A8B9C0D1 /* SixSevenAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				39DA6B7E2DCE4E36A8B9C0D1 /* SixSevenAppTests.swift */,
+			);
+			name = SixSevenAppTests;
+			path = Tests/SixSevenAppTests;
 			sourceTree = "<group>";
 		};
 		4ABDBA5216C2E98BE6700822 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
 				0529367544C633A62F5BDCFD /* Foundation.framework */,
+				4AAB4F290E6A46D8B9D4D7F1 /* XCTest.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -126,6 +155,25 @@
 			productReference = 5BE1BE383F9CF862BA5F3EE0 /* SixSeven.app */;
 			productType = "com.apple.product-type.application";
 		};
+		39DA6B7B2DCE4E36A8B9C0D1 /* SixSevenAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 39DA6B802DCE4E36A8B9C0D1 /* Build configuration list for PBXNativeTarget "SixSevenAppTests" */;
+			buildPhases = (
+				39DA6B812DCE4E36A8B9C0D1 /* Sources */,
+				4AAB4F280E6A46D8B9D4D7F1 /* Test Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SixSevenAppTests;
+			packageProductDependencies = (
+				CF878A3EAA25438124A67107 /* SixSevenCore */,
+			);
+			productName = SixSevenAppTests;
+			productReference = 39DA6B7D2DCE4E36A8B9C0D1 /* SixSevenAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -156,6 +204,7 @@
 			projectRoot = "";
 			targets = (
 				3C1AAB4F0724A41176C54FBB /* SixSeven */,
+				39DA6B7B2DCE4E36A8B9C0D1 /* SixSevenAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -166,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				327511678F0753D0D65EC5E0 /* coin-placeholder.svg in Resources */,
+				C4D0B1A4E7F34D22A8C1B9F0 /* Assets.xcassets in Resources */,
 				57CE3F9A1514548A4F6E9A9B /* result.wav in Resources */,
 				61EFCD1D8F23D31022FD350F /* flip.wav in Resources */,
 				79B4A272F7B0681BD644D0E9 /* rare-result.wav in Resources */,
@@ -182,6 +232,14 @@
 				5B7068B8C81AC1ABC89E4CD4 /* SixSevenApp.swift in Sources */,
 				B23B5CEC7F945BF5C621C19F /* AppDependencies.swift in Sources */,
 				C4D0B1A3E7F34D22A8C1B9F0 /* PlatformClients.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		39DA6B812DCE4E36A8B9C0D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39DA6B7F2DCE4E36A8B9C0D1 /* SixSevenAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,7 +313,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "SixSeven it!";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
@@ -330,7 +387,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGNING_ALLOWED = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "SixSeven it!";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
@@ -343,6 +399,32 @@
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		39DA6B822DCE4E36A8B9C0D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ultraqa.sixseven.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		39DA6B832DCE4E36A8B9C0D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ultraqa.sixseven.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -363,6 +445,15 @@
 			buildConfigurations = (
 				D41AE5C6844314246674A2B3 /* Release */,
 				88FFA14B6ACE49179579F7E7 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		39DA6B802DCE4E36A8B9C0D1 /* Build configuration list for PBXNativeTarget "SixSevenAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				39DA6B822DCE4E36A8B9C0D1 /* Debug */,
+				39DA6B832DCE4E36A8B9C0D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
