@@ -20,4 +20,8 @@ See [GAME_DESIGN.md](GAME_DESIGN.md) for the product specification and [ARCHITEC
 
 ## Status
 
-Pre-production. The next milestone is the domain core: outcome rules, RNG abstraction, game state transitions, statistics, and unit tests.
+MVP implementation is in progress. The current build includes the core game loop, local statistics, settings, native feedback adapters, accessibility tokens, and development resources.
+
+## Development assets
+
+The app currently includes short generated WAV placeholders for local development. They are intentionally temporary and should be replaced with licensed final audio without changing resource names. `coin-placeholder.svg` is a temporary visual reference; the MVP coin is rendered natively in SwiftUI.
