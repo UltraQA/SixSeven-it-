@@ -26,20 +26,20 @@
 
 /* Begin PBXFileReference section */
 		0529367544C633A62F5BDCFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		2694F5717EDA4C686E43F50A /* coin-placeholder.svg */ = {isa = PBXFileReference; includeInIndex = 1; name = "coin-placeholder.svg"; path = "../../Sources/SixSevenApp/Resources/Art/coin-placeholder.svg"; sourceTree = "<group>"; };
-		43F5A4D959BF7A47571DD5E5 /* AppDependencies.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDependencies.swift; path = ../Sources/SixSevenApp/AppDependencies.swift; sourceTree = "<group>"; };
-		45436CBBB432680BCA10B5E2 /* rare-result.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = "rare-result.wav"; path = "../../Sources/SixSevenApp/Resources/Audio/rare-result.wav"; sourceTree = "<group>"; };
+		2694F5717EDA4C686E43F50A /* coin-placeholder.svg */ = {isa = PBXFileReference; includeInIndex = 1; name = "coin-placeholder.svg"; path = Art/coin-placeholder.svg; sourceTree = "<group>"; };
+		43F5A4D959BF7A47571DD5E5 /* AppDependencies.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDependencies.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
+		45436CBBB432680BCA10B5E2 /* rare-result.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = "rare-result.wav"; path = Audio/rare-result.wav; sourceTree = "<group>"; };
 		5BE1BE383F9CF862BA5F3EE0 /* SixSeven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixSeven.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAB4F290E6A46D8B9D4D7F1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		39DA6B7E2DCE4E36A8B9C0D1 /* SixSevenAppTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SixSevenAppTests.swift; path = SixSevenAppTests.swift; sourceTree = "<group>"; };
 		39DA6B7D2DCE4E36A8B9C0D1 /* SixSevenAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SixSevenAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E1F9D2B4B7C4E8F9A0B1C2D /* SixSevenAppUITests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SixSevenAppUITests.swift; path = SixSevenAppUITests.swift; sourceTree = "<group>"; };
 		6E1F9D2E4B7C4E8F9A0B1C2D /* SixSevenAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SixSevenAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4D0B1A2E7F34D22A8C1B9F0 /* PlatformClients.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlatformClients.swift; path = ../Sources/SixSevenApp/PlatformClients.swift; sourceTree = "<group>"; };
-		C4D0B1A5E7F34D22A8C1B9F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Sources/SixSevenApp/Assets.xcassets; sourceTree = "<group>"; };
-		7C61135B26A02090F44C2910 /* SixSevenApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SixSevenApp.swift; path = ../Sources/SixSevenApp/SixSevenApp.swift; sourceTree = "<group>"; };
-		D5F0FF63DB02AC32713CBFCB /* flip.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = flip.wav; path = ../../Sources/SixSevenApp/Resources/Audio/flip.wav; sourceTree = "<group>"; };
-		DE9C23ABA6E48BBE1DDA8DD5 /* result.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = result.wav; path = ../../Sources/SixSevenApp/Resources/Audio/result.wav; sourceTree = "<group>"; };
+		C4D0B1A2E7F34D22A8C1B9F0 /* PlatformClients.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlatformClients.swift; path = PlatformClients.swift; sourceTree = "<group>"; };
+		C4D0B1A5E7F34D22A8C1B9F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Assets.xcassets; sourceTree = "<group>"; };
+		7C61135B26A02090F44C2910 /* SixSevenApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SixSevenApp.swift; path = SixSevenApp.swift; sourceTree = "<group>"; };
+		D5F0FF63DB02AC32713CBFCB /* flip.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = flip.wav; path = Audio/flip.wav; sourceTree = "<group>"; };
+		DE9C23ABA6E48BBE1DDA8DD5 /* result.wav */ = {isa = PBXFileReference; includeInIndex = 1; name = result.wav; path = Audio/result.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +83,7 @@
 				16E376727C8C055ECFA4F2A2 /* Resources */,
 			);
 			name = SixSevenApp;
-			path = SixSevenApp;
+			path = Sources/SixSevenApp;
 			sourceTree = "<group>";
 		};
 		0D84620462CB85081FB78CBB /* Products */ = {
