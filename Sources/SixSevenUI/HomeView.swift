@@ -6,9 +6,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     @StateObject private var settingsViewModel: SettingsViewModel
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @FocusState private var isQuestionFieldFocused: Bool
-    @State private var isSwipeHintPulsing = false
     private let motionClient: any MotionClient
 
     public init(
@@ -105,7 +103,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 .font(SixSevenTypography.eyebrow)
                 .tracking(1.8)
                 .foregroundStyle(SixSevenColors.contentSecondary)
-            Text("Sixseven it.")
+            Text("Sixseven it!!!")
                 .font(SixSevenTypography.hero)
                 .foregroundStyle(SixSevenColors.contentPrimary)
             if let question = result?.question, !question.isEmpty {
@@ -191,25 +189,11 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             if viewModel.currentOutcome == nil && !viewModel.isFlipping {
                 HStack(spacing: SixSevenSpacing.small) {
                     Image(systemName: "arrow.up")
-                        .frame(width: SixSevenSpacing.standard, height: SixSevenSpacing.standard)
-                        .scaleEffect(isSwipeHintPulsing && !reduceMotion ? 1.15 : 1)
-                        .animation(
-                            reduceMotion
-                                ? nil
-                                : .easeInOut(duration: 0.9).repeatForever(autoreverses: true),
-                            value: isSwipeHintPulsing
-                        )
                     Text("Swipe up to flip")
                 }
                     .font(SixSevenTypography.caption)
                     .foregroundStyle(SixSevenColors.contentSecondary)
                     .accessibilityHidden(true)
-                    .onAppear {
-                        isSwipeHintPulsing = !reduceMotion
-                    }
-                    .onChange(of: reduceMotion) { _, newValue in
-                        isSwipeHintPulsing = !newValue
-                    }
             }
         }
     }
