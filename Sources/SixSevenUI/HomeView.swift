@@ -36,6 +36,16 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                         outcome: viewModel.currentOutcome,
                         isFlipping: viewModel.isFlipping
                     )
+                    .contentShape(Rectangle())
+                    .gesture(
+                        DragGesture(minimumDistance: 24)
+                            .onEnded { value in
+                                guard value.translation.height < -60,
+                                      abs(value.translation.height) > abs(value.translation.width) else { return }
+                                viewModel.handleSwipeUp()
+                            }
+                    )
+                    .accessibilityHint("Swipe up to flip")
                     actionArea
                 }
                 .padding(.horizontal, SixSevenSpacing.standard)

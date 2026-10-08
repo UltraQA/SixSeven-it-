@@ -129,6 +129,8 @@ SixSeven/
 
 Платформенные Core Haptics, AVFoundation и Core Motion adapters изолированы в app target и реализованы как actors. Это оставляет Core portable и не скрывает mutable platform state за `@unchecked Sendable`.
 
+`Statistics.currentStreak` и `bestStreak` означают последовательность одинаковых outcome, а не количество всех завершённых бросков. Последний outcome сохраняется в Codable snapshot, чтобы серия корректно продолжалась после relaunch.
+
 ## 9. Testing
 
 Unit: probability boundaries, rules validation, deterministic provider, state transitions, streak/statistics, persistence round-trip, question trimming.

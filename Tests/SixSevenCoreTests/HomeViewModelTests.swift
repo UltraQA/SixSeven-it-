@@ -74,6 +74,20 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.currentOutcome, .six)
     }
 
+    func testSwipeUpStartsInitialFlip() async {
+        let viewModel = HomeViewModel(
+            provider: SequenceOutcomeProvider(outcomes: [.seven]),
+            statisticsStore: TestStatisticsStore(),
+            settingsStore: TestSettingsStore(),
+            animationDuration: .zero
+        )
+
+        viewModel.handleSwipeUp()
+        await yieldToPendingTasks()
+
+        XCTAssertEqual(viewModel.currentOutcome, .seven)
+    }
+
     private func yieldToPendingTasks() async {
         for _ in 0..<20 {
             await Task.yield()

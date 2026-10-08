@@ -7,6 +7,7 @@ public struct Statistics: Codable, Equatable, Sendable {
     public private(set) var bestStreak: Int
     public private(set) var currentSixtySevenStreak: Int
     public private(set) var bestSixtySevenStreak: Int
+    public private(set) var lastOutcome: Outcome?
 
     public static let empty = Statistics()
 
@@ -18,7 +19,8 @@ public struct Statistics: Codable, Equatable, Sendable {
         currentStreak: Int = 0,
         bestStreak: Int = 0,
         currentSixtySevenStreak: Int = 0,
-        bestSixtySevenStreak: Int = 0
+        bestSixtySevenStreak: Int = 0,
+        lastOutcome: Outcome? = nil
     ) {
         self.totalFlips = totalFlips
         self.sixCount = sixCount
@@ -28,12 +30,14 @@ public struct Statistics: Codable, Equatable, Sendable {
         self.bestStreak = bestStreak
         self.currentSixtySevenStreak = currentSixtySevenStreak
         self.bestSixtySevenStreak = bestSixtySevenStreak
+        self.lastOutcome = lastOutcome
     }
 
     private enum CodingKeys: String, CodingKey {
         case totalFlips, sixCount, sevenCount, sixtySevenCount
         case currentStreak, bestStreak
         case currentSixtySevenStreak, bestSixtySevenStreak
+        case lastOutcome
     }
 
     public init(from decoder: Decoder) throws {
@@ -46,14 +50,16 @@ public struct Statistics: Codable, Equatable, Sendable {
             currentStreak: try container.decode(Int.self, forKey: .currentStreak),
             bestStreak: try container.decode(Int.self, forKey: .bestStreak),
             currentSixtySevenStreak: try container.decodeIfPresent(Int.self, forKey: .currentSixtySevenStreak) ?? 0,
-            bestSixtySevenStreak: try container.decodeIfPresent(Int.self, forKey: .bestSixtySevenStreak) ?? 0
+            bestSixtySevenStreak: try container.decodeIfPresent(Int.self, forKey: .bestSixtySevenStreak) ?? 0,
+            lastOutcome: try container.decodeIfPresent(Outcome.self, forKey: .lastOutcome)
         )
     }
 
     public mutating func record(_ outcome: Outcome) {
         totalFlips += 1
-        currentStreak += 1
+        currentStreak = lastOutcome == outcome ? currentStreak + 1 : 1
         bestStreak = max(bestStreak, currentStreak)
+        lastOutcome = outcome
 
         switch outcome {
         case .six:

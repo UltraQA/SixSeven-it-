@@ -19,6 +19,7 @@ let package = Package(
         .executableTarget(
             name: "SixSevenApp",
             dependencies: ["SixSevenCore", "SixSevenUI"],
+            exclude: ["Assets.xcassets"],
             resources: [.process("Resources")]
         ),
         .testTarget(name: "SixSevenCoreTests", dependencies: ["SixSevenCore", "SixSevenUI"])

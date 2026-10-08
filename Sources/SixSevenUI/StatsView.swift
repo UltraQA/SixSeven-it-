@@ -12,8 +12,8 @@ public struct StatsView: View {
         List {
             Section("Overview") {
                 statRow("Total flips", value: statistics.totalFlips)
-                statRow("Current streak", value: statistics.currentStreak)
-                statRow("Best streak", value: statistics.bestStreak)
+                statRow("Current same-outcome streak", value: statistics.currentStreak)
+                statRow("Best same-outcome streak", value: statistics.bestStreak)
             }
 
             Section("Outcomes") {

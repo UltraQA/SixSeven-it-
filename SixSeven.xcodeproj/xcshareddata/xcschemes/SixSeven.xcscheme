@@ -38,6 +38,16 @@
 		       ReferencedContainer = "container:SixSeven.xcodeproj">
 		    </BuildableReference>
 		 </TestableReference>
+		 <TestableReference
+		    skipped = "NO">
+		    <BuildableReference
+		       BuildableIdentifier = "primary"
+		       BlueprintIdentifier = "6E1F9D304B7C4E8F9A0B1C2D"
+		       BuildableName = "SixSevenAppUITests.xctest"
+		       BlueprintName = "SixSevenAppUITests"
+		       ReferencedContainer = "container:SixSeven.xcodeproj">
+		    </BuildableReference>
+		 </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

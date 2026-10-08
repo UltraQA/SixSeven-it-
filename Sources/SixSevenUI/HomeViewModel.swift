@@ -119,6 +119,14 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
         flip()
     }
 
+    public func handleSwipeUp() {
+        if currentOutcome == nil {
+            flip()
+        } else {
+            flipAgain()
+        }
+    }
+
     public func flipAgain() {
         guard case .result = state.phase else { return }
         state.reset()

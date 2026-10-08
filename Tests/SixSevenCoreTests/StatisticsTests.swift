@@ -13,10 +13,22 @@ final class StatisticsTests: XCTestCase {
         XCTAssertEqual(statistics.sixCount, 1)
         XCTAssertEqual(statistics.sevenCount, 1)
         XCTAssertEqual(statistics.sixtySevenCount, 1)
-        XCTAssertEqual(statistics.currentStreak, 3)
-        XCTAssertEqual(statistics.bestStreak, 3)
+        XCTAssertEqual(statistics.currentStreak, 1)
+        XCTAssertEqual(statistics.bestStreak, 1)
         XCTAssertEqual(statistics.currentSixtySevenStreak, 1)
         XCTAssertEqual(statistics.bestSixtySevenStreak, 1)
+    }
+
+    func testOutcomeStreakGrowsForSameOutcomeAndResetsForAnother() {
+        var statistics = Statistics.empty
+
+        statistics.record(.six)
+        statistics.record(.six)
+        statistics.record(.seven)
+
+        XCTAssertEqual(statistics.currentStreak, 1)
+        XCTAssertEqual(statistics.bestStreak, 2)
+        XCTAssertEqual(statistics.lastOutcome, .seven)
     }
 
     func testRareStreakResetsAfterCommonOutcome() {
