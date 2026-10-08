@@ -5,9 +5,11 @@ import SixSevenCore
 @MainActor
 public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObject {
     @Published public private(set) var state: GameState
+    @Published public private(set) var settings: AppSettings = .defaults
 
     private var provider: Provider
     private let statisticsStore: any StatisticsStore
+    private let settingsStore: any SettingsStore
     private let feedback: any FlipFeedbackClient
     private let animationDuration: Duration
     private var completionTask: Task<Void, Never>?
@@ -17,25 +19,29 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
         provider: Provider,
         state: GameState = GameState(),
         statisticsStore: any StatisticsStore = UserDefaultsStatisticsStore(),
+        settingsStore: any SettingsStore = UserDefaultsSettingsStore(),
         feedback: any FlipFeedbackClient = NoOpFlipFeedbackClient(),
         animationDuration: Duration = .milliseconds(650)
     ) {
         self.provider = provider
         self.state = state
         self.statisticsStore = statisticsStore
+        self.settingsStore = settingsStore
         self.feedback = feedback
         self.animationDuration = animationDuration
 
         loadTask = Task { [weak self] in
             guard let self else { return }
             do {
-                let statistics = try await statisticsStore.load()
+                async let statistics = statisticsStore.load()
+                async let loadedSettings = settingsStore.load()
                 guard !Task.isCancelled else { return }
                 self.state = GameState(
                     phase: self.state.phase,
                     question: self.state.question,
-                    statistics: statistics
+                    statistics: try await statistics
                 )
+                self.settings = try await loadedSettings
             } catch {
                 // Persistence is optional; a fresh in-memory state remains usable.
             }
@@ -71,7 +77,8 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
         let outcome = provider.makeOutcome()
         completionTask?.cancel()
         completionTask = Task { [weak self] in
-            await self?.feedback.playLaunch()
+            let soundEffectsEnabled = self?.settings.soundEffectsEnabled ?? false
+            await self?.feedback.playLaunch(soundEffectsEnabled: soundEffectsEnabled)
             do {
                 try await Task.sleep(for: self?.animationDuration ?? .zero)
             } catch {
@@ -80,7 +87,10 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
 
             guard !Task.isCancelled, let self else { return }
             guard self.state.finishFlip(with: outcome) else { return }
-            await self.feedback.playResult(for: outcome)
+            await self.feedback.playResult(
+                for: outcome,
+                soundEffectsEnabled: self.settings.soundEffectsEnabled
+            )
 
             do {
                 try await self.statisticsStore.save(self.state.statistics)
@@ -88,6 +98,16 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
                 // A storage failure must not invalidate a completed flip.
             }
         }
+    }
+
+    public func refreshSettings() async {
+        guard let loadedSettings = try? await settingsStore.load() else { return }
+        settings = loadedSettings
+    }
+
+    public func handleShake() {
+        guard settings.motionControlEnabled else { return }
+        flip()
     }
 
     public func flipAgain() {

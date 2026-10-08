@@ -26,15 +26,15 @@ public protocol AudioClient: Sendable {
 }
 
 public protocol FlipFeedbackClient: Sendable {
-    func playLaunch() async
-    func playResult(for outcome: Outcome) async
+    func playLaunch(soundEffectsEnabled: Bool) async
+    func playResult(for outcome: Outcome, soundEffectsEnabled: Bool) async
 }
 
 public struct NoOpFlipFeedbackClient: FlipFeedbackClient {
     public init() {}
 
-    public func playLaunch() async {}
-    public func playResult(for outcome: Outcome) async {}
+    public func playLaunch(soundEffectsEnabled: Bool) async {}
+    public func playResult(for outcome: Outcome, soundEffectsEnabled: Bool) async {}
 }
 
 public struct SystemFlipFeedbackClient: FlipFeedbackClient {
@@ -46,19 +46,25 @@ public struct SystemFlipFeedbackClient: FlipFeedbackClient {
         self.audio = audio
     }
 
-    public func playLaunch() async {
+    public func playLaunch(soundEffectsEnabled: Bool) async {
         await haptics.playLaunch()
-        await audio.playFlip()
+        if soundEffectsEnabled {
+            await audio.playFlip()
+        }
     }
 
-    public func playResult(for outcome: Outcome) async {
+    public func playResult(for outcome: Outcome, soundEffectsEnabled: Bool) async {
         switch outcome {
         case .sixtySeven:
             await haptics.playRareResult()
-            await audio.playRareResult()
+            if soundEffectsEnabled {
+                await audio.playRareResult()
+            }
         case .six, .seven:
             await haptics.playResult()
-            await audio.playResult()
+            if soundEffectsEnabled {
+                await audio.playResult()
+            }
         }
     }
 }

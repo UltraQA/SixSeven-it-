@@ -9,19 +9,25 @@ public struct FlipFeedback<Haptics: HapticsClient, Audio: AudioClient>: FlipFeed
         self.audio = audio
     }
 
-    public func playLaunch() async {
+    public func playLaunch(soundEffectsEnabled: Bool) async {
         await haptics.playLaunch()
-        await audio.playFlip()
+        if soundEffectsEnabled {
+            await audio.playFlip()
+        }
     }
 
-    public func playResult(for outcome: Outcome) async {
+    public func playResult(for outcome: Outcome, soundEffectsEnabled: Bool) async {
         switch outcome {
         case .sixtySeven:
             await haptics.playRareResult()
-            await audio.playRareResult()
+            if soundEffectsEnabled {
+                await audio.playRareResult()
+            }
         case .six, .seven:
             await haptics.playResult()
-            await audio.playResult()
+            if soundEffectsEnabled {
+                await audio.playResult()
+            }
         }
     }
 }

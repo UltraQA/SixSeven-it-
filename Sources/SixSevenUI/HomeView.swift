@@ -3,11 +3,14 @@ import SixSevenCore
 
 public struct HomeView<Provider: FlipOutcomeProviding>: View {
     @StateObject private var viewModel: HomeViewModel<Provider>
+    private let motionClient: any MotionClient
 
     public init(
         provider: Provider,
-        feedback: any FlipFeedbackClient = NoOpFlipFeedbackClient()
+        feedback: any FlipFeedbackClient = NoOpFlipFeedbackClient(),
+        motionClient: any MotionClient = NoOpMotionClient()
     ) {
+        self.motionClient = motionClient
         _viewModel = StateObject(
             wrappedValue: HomeViewModel(provider: provider, feedback: feedback)
         )
@@ -49,6 +52,17 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                     }
                     .accessibilityLabel("Settings")
                 }
+            }
+            .task {
+                let events = motionClient.shakeEvents()
+                await motionClient.start()
+                await viewModel.refreshSettings()
+
+                for await _ in events {
+                    viewModel.handleShake()
+                }
+
+                await motionClient.stop()
             }
         }
     }

@@ -10,7 +10,8 @@ struct SixSevenApp: App {
                 provider: WeightedOutcomeProvider(
                     generator: SystemRandomNumberGeneratorAdapter()
                 ),
-                feedback: feedbackClient
+                feedback: feedbackClient,
+                motionClient: motionClient
             )
         }
     }
@@ -23,6 +24,14 @@ struct SixSevenApp: App {
         )
 #else
         return NoOpFlipFeedbackClient()
+#endif
+    }
+
+    private var motionClient: any MotionClient {
+#if os(iOS)
+        return SystemMotionClient()
+#else
+        return NoOpMotionClient()
 #endif
     }
 }
