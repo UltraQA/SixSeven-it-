@@ -20,7 +20,7 @@ See [GAME_DESIGN.md](GAME_DESIGN.md) for the product specification and [ARCHITEC
 
 ## CI
 
-GitHub Actions runs SwiftPM tests and a generic native iOS Simulator build for pushes and pull requests targeting `main`. Simulator unit/UI tests remain available for local Xcode runs but are intentionally excluded from the required CI gate until the hosted runner environment is stabilized. This keeps CI focused on deterministic compilation and domain tests while the MVP is being developed.
+GitHub Actions currently runs deterministic SwiftPM tests for pushes and pull requests targeting `main`. Native iOS build, unit tests, and UI tests remain available for local Xcode/Simulator runs but are temporarily excluded from the required CI gate because the hosted Xcode runner is returning exit code 65 before exposing actionable diagnostics. This keeps CI focused on deterministic domain checks while the MVP is being developed.
 
 ## Status
 

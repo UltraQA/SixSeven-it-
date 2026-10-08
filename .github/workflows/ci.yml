@@ -28,26 +28,3 @@ jobs:
 
       - name: Run SwiftPM tests
         run: swift test
-
-  ios-simulator:
-    name: iOS Simulator build
-    runs-on: macos-15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
-      - name: Build native app
-        run: >-
-          xcodebuild
-          -project SixSeven.xcodeproj
-          -scheme SixSeven
-          -sdk iphonesimulator
-          -destination 'generic/platform=iOS Simulator'
-          -derivedDataPath "$RUNNER_TEMP/SixSevenDerivedData"
-          CODE_SIGNING_ALLOWED=NO
-          build
