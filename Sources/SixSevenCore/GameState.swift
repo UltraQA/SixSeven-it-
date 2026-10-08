@@ -36,6 +36,12 @@ public struct GameState: Equatable, Sendable {
         return true
     }
 
+    public mutating func cancelFlip() -> Bool {
+        guard phase == .flipping else { return false }
+        phase = .idle
+        return true
+    }
+
     public mutating func reset() {
         guard case .result = phase else { return }
         phase = .idle

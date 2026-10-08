@@ -78,6 +78,9 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             .onChange(of: settingsViewModel.settings) { _, settings in
                 viewModel.apply(settings: settings)
             }
+            .onDisappear {
+                viewModel.cancelPendingFlip()
+            }
         }
     }
 

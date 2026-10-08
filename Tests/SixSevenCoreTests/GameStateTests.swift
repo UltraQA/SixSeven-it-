@@ -40,4 +40,14 @@ final class GameStateTests: XCTestCase {
         state.reset()
         XCTAssertEqual(state.phase, .idle)
     }
+
+    func testCancelFlipReturnsToIdleWithoutRecordingResult() {
+        var state = GameState()
+
+        XCTAssertTrue(state.beginFlip())
+        XCTAssertTrue(state.cancelFlip())
+        XCTAssertEqual(state.phase, .idle)
+        XCTAssertEqual(state.statistics.totalFlips, 0)
+        XCTAssertFalse(state.cancelFlip())
+    }
 }

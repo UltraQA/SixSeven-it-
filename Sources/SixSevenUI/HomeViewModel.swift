@@ -82,6 +82,9 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
             do {
                 try await Task.sleep(for: self?.animationDuration ?? .zero)
             } catch {
+                if Task.isCancelled {
+                    self?.cancelPendingFlip()
+                }
                 return
             }
 
@@ -125,5 +128,6 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
     public func cancelPendingFlip() {
         completionTask?.cancel()
         completionTask = nil
+        _ = state.cancelFlip()
     }
 }
