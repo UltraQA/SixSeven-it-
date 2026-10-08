@@ -102,9 +102,9 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     private var header: some View {
         VStack(spacing: SixSevenSpacing.small) {
             Text("Can't decide?")
-                .font(.title2.weight(.semibold))
+                .font(SixSevenTypography.title)
             Text("Sixseven it.")
-                .font(.largeTitle.bold())
+                .font(SixSevenTypography.display)
         }
         .foregroundStyle(SixSevenColors.content)
         .multilineTextAlignment(.center)

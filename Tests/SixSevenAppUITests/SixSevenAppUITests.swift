@@ -13,4 +13,17 @@ final class SixSevenAppUITests: XCTestCase {
         let shareButton = app.buttons["sixseven.shareButton"]
         XCTAssertTrue(shareButton.waitForExistence(timeout: 3))
     }
+
+    func testHomeIsUsableWithDarkModeLargeTextAndReduceMotion() {
+        let app = XCUIApplication()
+        app.launchArguments += [
+            "-AppleInterfaceStyle", "Dark",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL",
+            "-UIAccessibilityReduceMotionEnabled", "YES"
+        ]
+        app.launch()
+
+        XCTAssertTrue(app.otherElements["sixseven.coin"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.buttons["sixseven.flipButton"].exists)
+    }
 }
