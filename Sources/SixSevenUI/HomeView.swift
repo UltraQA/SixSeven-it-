@@ -28,6 +28,23 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
+            .toolbar {
+                ToolbarItemGroup(placement: .automatic) {
+                    NavigationLink {
+                        StatsView(statistics: viewModel.statistics)
+                    } label: {
+                        Image(systemName: "chart.bar")
+                    }
+                    .accessibilityLabel("Stats")
+
+                    NavigationLink {
+                        SettingsView()
+                    } label: {
+                        Image(systemName: "gearshape")
+                    }
+                    .accessibilityLabel("Settings")
+                }
+            }
         }
     }
 

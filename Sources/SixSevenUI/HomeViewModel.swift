@@ -58,6 +58,10 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
         return result.outcome
     }
 
+    public var statistics: Statistics {
+        state.statistics
+    }
+
     public func flip() {
         guard state.beginFlip() else { return }
 
