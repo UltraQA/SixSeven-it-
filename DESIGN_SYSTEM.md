@@ -56,10 +56,10 @@ Eyebrow использует небольшое tracking только для к�
 
 | Product component | SwiftUI implementation |
 |---|---|
-| Decision card | `SixSevenCard` with `THE 6/7 CALL` label, `Drop your dilemma here…` placeholder and `80`-character counter |
+| Question input | Minimal underline field with `THE 6/7 CALL` label and `Drop your dilemma here…` placeholder; the `80`-character limit remains enforced without a visible counter |
 | Coin renderer | `CoinView` на `Circle`, `LinearGradient`, `rotation3DEffect` |
 | Flip interaction | Swipe up on the full Home interaction zone |
-| Secondary/share action | `SixSevenSecondaryButtonStyle` + `ShareLink` |
+| Secondary/share action | Borderless `ShareLink` with SF Symbol and text, preserving a 44pt touch target |
 | Result question copy | Header tagline replacement with quoted `FlipResult.question` |
 | Stats row | `List` row с outcome color + monospaced metric |
 | Settings row | Native `Form`/`Toggle`, system accessibility behavior |
@@ -73,8 +73,8 @@ Eyebrow использует небольшое tracking только для к�
 
 1. Без app title в navigation bar; справа `Stats` и `Settings`.
 2. Centered header: eyebrow `CAN'T DECIDE?`, hero `Sixseven it.`, tagline `Let the numbers make the call.`
-3. Decision card: label `THE 6/7 CALL`, placeholder `Drop your dilemma here…`, optional multiline input with an `80`-character limit.
-4. Coin stage: neutral coin with `?`, helper `Swipe up to flip`.
+3. Minimal question input: label `THE 6/7 CALL`, placeholder `Drop your dilemma here…`, optional multiline input with an invisible `80`-character limit.
+4. Coin stage: neutral coin with `?`, helper `Swipe up to flip` with a subtle arrow pulse in idle.
 5. Reserved result label `Ready when you are`.
 6. Swipe affordance is the only visible Home trigger; the whole area from the question card downward accepts an upward swipe.
 
@@ -85,8 +85,8 @@ Home не прокручивается в обычном layout: вертика�
 1. Coin показывает выбранный outcome.
 2. Label: `It's a 6`, `It's a 7` или `SIX SEVEN!`.
 3. При наличии вопроса он заменяет tagline под hero, поэтому вопрос не дублируется в отдельной result-карточке.
-4. Input остаётся на том же месте и готов к следующему вопросу; его счётчик показывает `current/80`.
-5. Ниже появляется `Share result` secondary action.
+4. Input остаётся на том же месте и готов к следующему вопросу; the character limit remains enforced without extra counter chrome.
+5. Ниже появляется borderless `Share result` action.
 
 ### Stats
 

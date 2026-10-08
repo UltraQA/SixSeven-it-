@@ -6,7 +6,9 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     @StateObject private var settingsViewModel: SettingsViewModel
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @FocusState private var isQuestionFieldFocused: Bool
+    @State private var isSwipeHintPulsing = false
     private let motionClient: any MotionClient
 
     public init(
@@ -123,38 +125,34 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     }
 
     private var questionField: some View {
-        SixSevenCard {
-            VStack(alignment: .leading, spacing: SixSevenSpacing.small) {
-                Text("THE 6/7 CALL")
-                    .font(SixSevenTypography.eyebrow)
-                    .tracking(1.2)
-                    .foregroundStyle(SixSevenColors.contentSecondary)
+        VStack(alignment: .leading, spacing: SixSevenSpacing.small) {
+            Text("THE 6/7 CALL")
+                .font(SixSevenTypography.eyebrow)
+                .tracking(1.2)
+                .foregroundStyle(SixSevenColors.contentSecondary)
 
-                TextField(
-                    "Drop your dilemma here…",
-                    text: Binding(
-                        get: { viewModel.question },
-                        set: { viewModel.question = $0 }
-                    ),
-                    axis: .vertical
-                )
-                .font(SixSevenTypography.body)
-                .lineLimit(1...3)
-                .submitLabel(.done)
-                .focused($isQuestionFieldFocused)
-                .disabled(viewModel.isFlipping)
-                .accessibilityIdentifier(SixSevenAccessibility.questionInput)
-                .accessibilityLabel("Decision question")
-
-                HStack {
-                    Spacer()
-                    Text("\(viewModel.question.count)/\(SixSevenQuestionMetrics.maxLength)")
-                        .font(SixSevenTypography.caption)
-                        .foregroundStyle(SixSevenColors.contentSecondary)
-                        .monospacedDigit()
-                        .accessibilityLabel("\(viewModel.question.count) of \(SixSevenQuestionMetrics.maxLength) characters")
-                }
-            }
+            TextField(
+                "Drop your dilemma here…",
+                text: Binding(
+                    get: { viewModel.question },
+                    set: { viewModel.question = $0 }
+                ),
+                axis: .vertical
+            )
+            .font(SixSevenTypography.body)
+            .lineLimit(1...3)
+            .submitLabel(.done)
+            .focused($isQuestionFieldFocused)
+            .disabled(viewModel.isFlipping)
+            .accessibilityIdentifier(SixSevenAccessibility.questionInput)
+            .accessibilityLabel("Decision question")
+            .padding(.vertical, SixSevenSpacing.small)
+        }
+        .padding(.horizontal, SixSevenSpacing.hairline)
+        .overlay(alignment: .bottom) {
+            Rectangle()
+                .fill(SixSevenColors.separator.opacity(0.7))
+                .frame(height: 1)
         }
     }
 
@@ -191,10 +189,26 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             .simultaneousGesture(upwardSwipeGesture)
 
             if viewModel.currentOutcome == nil && !viewModel.isFlipping {
-                Label("Swipe up to flip", systemImage: "arrow.up")
+                HStack(spacing: SixSevenSpacing.small) {
+                    Image(systemName: "arrow.up")
+                        .offset(y: isSwipeHintPulsing && !reduceMotion ? -4 : 0)
+                    Text("Swipe up to flip")
+                }
                     .font(SixSevenTypography.caption)
                     .foregroundStyle(SixSevenColors.contentSecondary)
                     .accessibilityHidden(true)
+                    .animation(
+                        reduceMotion
+                            ? nil
+                            : .easeInOut(duration: 0.9).repeatForever(autoreverses: true),
+                        value: isSwipeHintPulsing
+                    )
+                    .onAppear {
+                        isSwipeHintPulsing = !reduceMotion
+                    }
+                    .onChange(of: reduceMotion) { _, newValue in
+                        isSwipeHintPulsing = !newValue
+                    }
             }
         }
     }
@@ -206,9 +220,12 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             if let result {
                 ShareLink(item: SharePayload.text(for: result)) {
                     Label("Share result", systemImage: "square.and.arrow.up")
+                        .font(SixSevenTypography.title)
+                        .foregroundStyle(SixSevenColors.contentPrimary)
                         .frame(maxWidth: .infinity)
+                        .frame(minHeight: 44)
                 }
-                .buttonStyle(SixSevenSecondaryButtonStyle())
+                .buttonStyle(.plain)
                 .accessibilityIdentifier(SixSevenAccessibility.shareButton)
             }
         }
