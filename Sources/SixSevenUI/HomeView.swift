@@ -40,7 +40,6 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 .padding(.bottom, SixSevenSpacing.hero)
             }
             .background(SixSevenColors.backgroundPrimary.ignoresSafeArea())
-            .navigationTitle("SixSeven it!")
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -106,7 +105,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     private var questionField: some View {
         SixSevenCard {
             VStack(alignment: .leading, spacing: SixSevenSpacing.small) {
-                Text("YOUR DECISION")
+                Text("WHAT'S THE MOVE?")
                     .font(SixSevenTypography.eyebrow)
                     .tracking(1.2)
                     .foregroundStyle(SixSevenColors.contentSecondary)
@@ -173,7 +172,7 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 }
             } label: {
                 Label(
-                    viewModel.currentOutcome == nil ? "Flip it" : "Flip again",
+                    "Flip it!",
                     systemImage: "arrow.triangle.2.circlepath"
                 )
                     .frame(maxWidth: .infinity)

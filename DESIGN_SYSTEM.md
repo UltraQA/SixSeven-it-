@@ -73,7 +73,7 @@ Eyebrow использует небольшое tracking только для к�
 
 1. Inline navigation title `SixSeven it!`; справа `Stats` и `Settings`.
 2. Centered header: eyebrow `CAN'T DECIDE?`, hero `Sixseven it.`, tagline `Let the numbers make the call.`
-3. Decision card: label `YOUR DECISION`, optional multiline input.
+3. Decision card: label `WHAT'S THE MOVE?`, optional multiline input.
 4. Coin stage: neutral coin with `?`, helper `Swipe up to flip`.
 5. Reserved result label `Ready when you are`.
 6. Full-width `Flip it` primary button.
@@ -83,7 +83,7 @@ Eyebrow использует небольшое tracking только для к�
 1. Coin показывает выбранный outcome.
 2. Label: `It's a 6`, `It's a 7` или `SIX SEVEN!`.
 3. При наличии вопроса — result question card.
-4. `Flip again` остаётся на том же месте, чтобы действие не прыгало между состояниями.
+4. `Flip it!` остаётся на том же месте и используется во всех состояниях.
 5. Ниже появляется `Share result` secondary action.
 
 ### Stats
