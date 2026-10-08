@@ -103,7 +103,7 @@ Color tokens: `backgroundPrimary`, `backgroundSecondary`, `contentPrimary`, `con
 
 Typography: `hero` → rounded black 72pt; `display` → `.largeTitle.bold()`; `title` → `.title2.weight(.semibold)`; `body` → `.body`; `caption` → `.caption`. Поддержать Dynamic Type.
 
-Spacing: `4, 8, 12, 16, 24, 32, 48`. MVP radius: 16 controls, 24 cards, 32 hero. Touch target ≥ 44×44pt.
+Spacing: `4, 8, 12, 16, 24, 32, 48`. MVP radius: 16 controls, 24 cards, 32 hero. Touch target ≥ 44×44pt. Timing tokens (`650ms` animation, `1.25s` result cooldown) находятся в `SixSevenTiming`; UI не должен вводить собственные значения.
 
 ## 8. Project structure
 

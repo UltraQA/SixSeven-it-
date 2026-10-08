@@ -21,7 +21,9 @@
 
 `Idle → Input (optional) → Flip in progress → Result → Share or Flip again`
 
-Home screen содержит название, tagline, поле с placeholder `What are you deciding?`, крупную монету, `Flip it`, motion affordance и доступ к `Stats`/`Settings`. До завершения броска новые запуски блокируются.
+Home screen содержит tagline, поле с placeholder `What are you deciding?`, крупную монету, `Flip it!`, motion affordance и доступ к `Stats`/`Settings`. До завершения броска новые запуски блокируются.
+
+Точный timeline MVP: `Flip it!`/swipe → RNG выбирает outcome → coin animation (`650ms`) → coin settles → показываются outcome, `Share result` и заданный вопрос → запускаются haptic/audio feedback → следующий flip заблокирован на `1.25s`. Вопрос сохраняется в `FlipResult`, а input очищается после показа результата.
 
 Запуск: кнопка, свайп вверх по монете или shake, если motion control включён.
 

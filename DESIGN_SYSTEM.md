@@ -98,11 +98,20 @@ Native `Form`: `Sound Effects`, `Motion Control`, затем короткое о
 
 - При `Reduce Motion` coin не делает 3D spin; остаётся короткий state transition.
 - `67` усиливается scale/sparkle только визуально; текст и haptic — отдельные fallback-safe каналы.
-- После показа результата действует короткий `SixSevenTiming.resultCooldown` (`350ms`): он блокирует повторный flip, swipe и shake, чтобы пользователь успел считать outcome.
+- После показа результата действует `SixSevenTiming.resultCooldown` (`1.25s`): он блокирует повторный flip, swipe и shake, чтобы пользователь успел считать outcome и увидеть feedback.
 - Swipe — дополнительный affordance, primary control всегда доступен кнопкой.
 - Coin — один accessibility element с value `Ready`, `Flipping`, `6`, `7` или `SIX SEVEN`.
 - Не использовать цвет как единственный сигнал; текст результата и форма UI обязательны.
 - Проверять Light/Dark, Dynamic Type до `accessibilityXXXL`, VoiceOver labels, 44pt targets и landscape на iPhone.
+
+## Interaction timeline
+
+1. Пользователь нажимает `Flip it!` или делает swipe вверх.
+2. `HomeViewModel` один раз выбирает outcome через injected RNG; outcome не зависит от animation.
+3. Запускается coin animation на `SixSevenTiming.flipAnimation` (`650ms`), input блокируется.
+4. После завершения animation показываются outcome, `Share result` и сохранённый вопрос в result summary; input очищается для следующего решения.
+5. Одновременно запускаются haptic/audio feedback adapters. Их ошибка не влияет на result.
+6. Следующий flip блокируется на `SixSevenTiming.resultCooldown` (`1.25s`). В этот период button, swipe и shake не запускают новый outcome.
 
 ## App icon concept
 
