@@ -137,13 +137,6 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
 
                 if let result {
                     resultSummary(for: result)
-
-                    ShareLink(item: SharePayload.text(for: result)) {
-                        Label("Share result", systemImage: "square.and.arrow.up")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.bordered)
-                    .accessibilityIdentifier(SixSevenAccessibility.shareButton)
                 }
             }
 
@@ -162,6 +155,15 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             .disabled(viewModel.isFlipping)
             .accessibilityIdentifier(SixSevenAccessibility.flipButton)
             .accessibilityHint(viewModel.isFlipping ? "Wait for the result" : "Starts a coin flip")
+
+            if let result {
+                ShareLink(item: SharePayload.text(for: result)) {
+                    Label("Share result", systemImage: "square.and.arrow.up")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.bordered)
+                .accessibilityIdentifier(SixSevenAccessibility.shareButton)
+            }
         }
     }
 
