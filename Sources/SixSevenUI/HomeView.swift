@@ -65,6 +65,14 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                     .font(.title2.bold())
                     .foregroundStyle(outcome == .sixtySeven ? SixSevenColors.rare : SixSevenColors.content)
                     .accessibilityAddTraits(.isHeader)
+
+                if let result {
+                    ShareLink(item: SharePayload.text(for: result)) {
+                        Label("Share result", systemImage: "square.and.arrow.up")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.bordered)
+                }
             }
 
             Button {
@@ -82,6 +90,11 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             .disabled(viewModel.isFlipping)
             .accessibilityHint(viewModel.isFlipping ? "Wait for the result" : "Starts a coin flip")
         }
+    }
+
+    private var result: FlipResult? {
+        guard case let .result(result) = viewModel.state.phase else { return nil }
+        return result
     }
 
     private func resultText(for outcome: Outcome) -> String {

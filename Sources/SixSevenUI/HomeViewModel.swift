@@ -7,21 +7,41 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
     @Published public private(set) var state: GameState
 
     private var provider: Provider
+    private let statisticsStore: any StatisticsStore
     private let animationDuration: Duration
     private var completionTask: Task<Void, Never>?
+    private var loadTask: Task<Void, Never>?
 
     public init(
         provider: Provider,
         state: GameState = GameState(),
+        statisticsStore: any StatisticsStore = UserDefaultsStatisticsStore(),
         animationDuration: Duration = .milliseconds(650)
     ) {
         self.provider = provider
         self.state = state
+        self.statisticsStore = statisticsStore
         self.animationDuration = animationDuration
+
+        loadTask = Task { [weak self] in
+            guard let self else { return }
+            do {
+                let statistics = try await statisticsStore.load()
+                guard !Task.isCancelled else { return }
+                self.state = GameState(
+                    phase: self.state.phase,
+                    question: self.state.question,
+                    statistics: statistics
+                )
+            } catch {
+                // Persistence is optional; a fresh in-memory state remains usable.
+            }
+        }
     }
 
     deinit {
         completionTask?.cancel()
+        loadTask?.cancel()
     }
 
     public var question: String {
@@ -51,7 +71,13 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
             }
 
             guard !Task.isCancelled, let self else { return }
-            _ = self.state.finishFlip(with: outcome)
+            guard self.state.finishFlip(with: outcome) else { return }
+
+            do {
+                try await self.statisticsStore.save(self.state.statistics)
+            } catch {
+                // A storage failure must not invalidate a completed flip.
+            }
         }
     }
 
