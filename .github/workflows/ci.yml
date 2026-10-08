@@ -1,0 +1,63 @@
+name: SixSeven CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  swift-package:
+    name: Swift Package tests
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Run SwiftPM tests
+        run: swift test
+
+  ios-simulator:
+    name: iOS Simulator tests
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Show available simulators
+        run: xcrun simctl list devices available
+
+      - name: Build and test native app
+        run: >-
+          xcodebuild
+          -project SixSeven.xcodeproj
+          -scheme SixSeven
+          -sdk iphonesimulator
+          -destination 'platform=iOS Simulator,name=iPhone 16'
+          -derivedDataPath "$RUNNER_TEMP/SixSevenDerivedData"
+          test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sixseven-xcresult
+          path: ${{ runner.temp }}/SixSevenDerivedData/Logs/Test/*.xcresult
+          if-no-files-found: ignore

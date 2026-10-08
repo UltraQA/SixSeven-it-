@@ -18,6 +18,10 @@ The MVP lets a user ask an optional question, flip a coin, and receive one of th
 
 See [GAME_DESIGN.md](GAME_DESIGN.md) for the product specification and [ARCHITECTURE.md](ARCHITECTURE.md) for the technical design. Repository workflow and engineering constraints are documented in [AGENTS.md](AGENTS.md).
 
+## CI
+
+GitHub Actions runs SwiftPM tests and the native iOS simulator test scheme for pushes and pull requests targeting `main`. Failed Xcode test results are uploaded as a workflow artifact when available.
+
 ## Status
 
 MVP implementation is in progress. The current build includes the core game loop, local statistics, settings, native feedback adapters, accessibility tokens, a native Xcode app target, and native unit-test coverage. SwiftPM currently reports 21 passing tests; the iOS scheme also runs `SixSevenAppTests` on the simulator.
