@@ -4,6 +4,7 @@ import SixSevenCore
 public struct HomeView<Provider: FlipOutcomeProviding>: View {
     @StateObject private var viewModel: HomeViewModel<Provider>
     @StateObject private var settingsViewModel: SettingsViewModel
+    @Environment(\.scenePhase) private var scenePhase
     private let motionClient: any MotionClient
 
     public init(
@@ -79,6 +80,10 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 viewModel.apply(settings: settings)
             }
             .onDisappear {
+                viewModel.cancelPendingFlip()
+            }
+            .onChange(of: scenePhase) { _, phase in
+                guard phase != .active else { return }
                 viewModel.cancelPendingFlip()
             }
         }
