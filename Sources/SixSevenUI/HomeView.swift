@@ -129,12 +129,9 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
 
     private var actionArea: some View {
         VStack(spacing: SixSevenSpacing.standard) {
-            if let outcome = viewModel.currentOutcome {
-                Text(resultText(for: outcome))
-                    .font(.title2.bold())
-                    .foregroundStyle(outcome == .sixtySeven ? SixSevenColors.rare : SixSevenColors.content)
-                    .accessibilityAddTraits(.isHeader)
+            resultLabel
 
+            if viewModel.currentOutcome != nil {
                 if let result {
                     resultSummary(for: result)
                 }
@@ -165,6 +162,23 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 .accessibilityIdentifier(SixSevenAccessibility.shareButton)
             }
         }
+    }
+
+    private var resultLabel: some View {
+        ZStack {
+            Text("It's a 7")
+                .font(.title2.bold())
+                .hidden()
+                .accessibilityHidden(true)
+
+            if let outcome = viewModel.currentOutcome {
+                Text(resultText(for: outcome))
+                    .font(.title2.bold())
+                    .foregroundStyle(outcome == .sixtySeven ? SixSevenColors.rare : SixSevenColors.content)
+                    .accessibilityAddTraits(.isHeader)
+            }
+        }
+        .frame(maxWidth: .infinity)
     }
 
     @ViewBuilder
