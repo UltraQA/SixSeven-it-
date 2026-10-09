@@ -74,7 +74,10 @@ public enum SixSevenRadius {
 }
 
 public enum SixSevenCoinMetrics {
-    public static let diameter: CGFloat = 220
+    /// The coin is the primary action and visual focal point of the home screen.
+    /// The artwork itself contains transparent padding, so this frame intentionally
+    /// gives the rendered asset enough room to read as the hero element.
+    public static let diameter: CGFloat = 280
     public static let borderWidth: CGFloat = 4
     public static let innerBorderWidth: CGFloat = 2
     public static let shadowRadius: CGFloat = 20
