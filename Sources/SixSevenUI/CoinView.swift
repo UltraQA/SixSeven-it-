@@ -18,6 +18,44 @@ public struct CoinView: View {
 
     public var body: some View {
         ZStack {
+            if !isFlipping, let imageAssetName {
+                Image(imageAssetName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: coinDiameter, height: coinDiameter)
+                    .scaleEffect(1.42)
+                    .shadow(
+                        color: coinColor.opacity(0.35),
+                        radius: SixSevenCoinMetrics.shadowRadius,
+                        y: SixSevenCoinMetrics.shadowYOffset
+                    )
+                    .accessibilityHidden(true)
+            } else {
+                generatedCoin
+            }
+        }
+        .frame(width: coinDiameter, height: coinDiameter)
+        .scaleEffect(outcome == .sixtySeven && !isFlipping ? SixSevenCoinMetrics.rareScale : 1)
+        .rotation3DEffect(
+            .degrees(isFlipping && !reduceMotion ? 720 : 0),
+            axis: (x: 0, y: 1, z: 0)
+        )
+        .animation(
+            reduceMotion ? .easeOut(duration: 0.2) : .easeInOut(duration: 0.65),
+            value: isFlipping
+        )
+        .animation(
+            reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.65),
+            value: outcome
+        )
+        .accessibilityElement(children: .ignore)
+        .accessibilityIdentifier(SixSevenAccessibility.coin)
+        .accessibilityLabel("Coin result")
+        .accessibilityValue(accessibilityValue)
+    }
+
+    private var generatedCoin: some View {
+        ZStack {
             Circle()
                 .fill(coinGradient)
                 .overlay {
@@ -57,24 +95,15 @@ public struct CoinView: View {
                 .shadow(color: .black.opacity(0.18), radius: 1, y: 2)
                 .contentTransition(.numericText())
         }
-        .frame(width: coinDiameter, height: coinDiameter)
-        .scaleEffect(outcome == .sixtySeven && !isFlipping ? SixSevenCoinMetrics.rareScale : 1)
-        .rotation3DEffect(
-            .degrees(isFlipping && !reduceMotion ? 720 : 0),
-            axis: (x: 0, y: 1, z: 0)
-        )
-        .animation(
-            reduceMotion ? .easeOut(duration: 0.2) : .easeInOut(duration: 0.65),
-            value: isFlipping
-        )
-        .animation(
-            reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.65),
-            value: outcome
-        )
-        .accessibilityElement(children: .ignore)
-        .accessibilityIdentifier(SixSevenAccessibility.coin)
-        .accessibilityLabel("Coin result")
-        .accessibilityValue(accessibilityValue)
+    }
+
+    private var imageAssetName: String? {
+        switch outcome {
+        case nil: "CoinIdle"
+        case .six: "CoinSix"
+        case .seven: "CoinSeven"
+        case .sixtySeven: nil
+        }
     }
 
     private var displayValue: String {
