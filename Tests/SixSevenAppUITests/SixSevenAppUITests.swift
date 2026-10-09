@@ -68,4 +68,13 @@ final class SixSevenAppUITests: XCTestCase {
 
         XCTAssertTrue(app.otherElements["sixseven.coin"].waitForExistence(timeout: 3))
     }
+
+    func testTestToolsMenuExposesDebugControls() {
+        let app = XCUIApplication()
+        app.launch()
+
+        let testToolsButton = app.buttons["sixseven.testToolsButton"]
+        XCTAssertTrue(testToolsButton.waitForExistence(timeout: 3))
+        testToolsButton.tap()
+    }
 }

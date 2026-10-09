@@ -36,6 +36,10 @@ public final class SettingsViewModel: ObservableObject {
         update { $0.motionControlEnabled = isEnabled }
     }
 
+    public func setTheme(_ theme: AppTheme) {
+        update { $0.theme = theme }
+    }
+
     private func update(_ change: (inout AppSettings) -> Void) {
         change(&settings)
         saveTask?.cancel()

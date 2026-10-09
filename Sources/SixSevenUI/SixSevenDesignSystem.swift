@@ -140,6 +140,7 @@ public enum SixSevenAccessibility {
     public static let shareButton = "sixseven.shareButton"
     public static let statsButton = "sixseven.statsButton"
     public static let settingsButton = "sixseven.settingsButton"
+    public static let testToolsButton = "sixseven.testToolsButton"
     public static let resultSummary = "sixseven.resultSummary"
     public static let swipeSurface = "sixseven.swipeSurface"
 }

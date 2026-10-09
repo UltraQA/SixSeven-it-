@@ -78,10 +78,22 @@ public final class HomeViewModel<Provider: FlipOutcomeProviding>: ObservableObje
     }
 
     public func flip() {
+        flip(forcedOutcome: nil)
+    }
+
+    public func forceOutcome(_ outcome: Outcome) {
+        guard !isResultCoolingDown else { return }
+        if case .result = state.phase {
+            state.reset()
+        }
+        flip(forcedOutcome: outcome)
+    }
+
+    private func flip(forcedOutcome: Outcome?) {
         guard !isResultCoolingDown else { return }
         guard state.beginFlip() else { return }
 
-        let outcome = provider.makeOutcome()
+        let outcome = forcedOutcome ?? provider.makeOutcome()
         completionTask?.cancel()
         completionTask = Task { [weak self] in
             let soundEffectsEnabled = self?.settings.soundEffectsEnabled ?? false

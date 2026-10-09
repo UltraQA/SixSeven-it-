@@ -6,7 +6,11 @@ final class SettingsStoreTests: XCTestCase {
     func testUserDefaultsSettingsRoundTrip() async throws {
         let suiteName = "SixSevenTests.\(UUID().uuidString)"
         let store = UserDefaultsSettingsStore(suiteName: suiteName)
-        let expected = AppSettings(soundEffectsEnabled: false, motionControlEnabled: true)
+        let expected = AppSettings(
+            soundEffectsEnabled: false,
+            motionControlEnabled: true,
+            theme: .dark
+        )
 
         try await store.save(expected)
         let actual = try await store.load()

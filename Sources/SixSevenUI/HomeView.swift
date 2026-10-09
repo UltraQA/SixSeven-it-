@@ -70,6 +70,10 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                         }
                         .accessibilityLabel("Settings")
                         .accessibilityIdentifier(SixSevenAccessibility.settingsButton)
+
+                        TestToolsMenu(settingsViewModel: settingsViewModel) { outcome in
+                            viewModel.forceOutcome(outcome)
+                        }
                     }
                 }
                 .task {
@@ -93,7 +97,16 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                     guard phase != .active else { return }
                     viewModel.cancelPendingFlip()
                 }
+                .preferredColorScheme(preferredColorScheme)
             }
+        }
+    }
+
+    private var preferredColorScheme: ColorScheme? {
+        switch settingsViewModel.settings.theme {
+        case .system: nil
+        case .light: .light
+        case .dark: .dark
         }
     }
 

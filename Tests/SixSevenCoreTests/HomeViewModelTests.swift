@@ -88,6 +88,20 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.currentOutcome, .seven)
     }
 
+    func testForceOutcomeSelectsRequestedResult() async {
+        let viewModel = HomeViewModel(
+            provider: SequenceOutcomeProvider(outcomes: [.six]),
+            statisticsStore: TestStatisticsStore(),
+            settingsStore: TestSettingsStore(),
+            animationDuration: .zero
+        )
+
+        viewModel.forceOutcome(.sixtySeven)
+        await yieldToPendingTasks()
+
+        XCTAssertEqual(viewModel.currentOutcome, .sixtySeven)
+    }
+
     func testQuestionClearsAfterFlipWhileResultKeepsOriginalQuestion() async {
         let viewModel = HomeViewModel(
             provider: SequenceOutcomeProvider(outcomes: [.six]),
