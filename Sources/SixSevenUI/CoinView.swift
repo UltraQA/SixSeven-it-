@@ -102,7 +102,7 @@ public struct CoinView: View {
         case nil: "CoinIdle"
         case .six: "CoinSix"
         case .seven: "CoinSeven"
-        case .sixtySeven: nil
+        case .sixtySeven: "CoinSixtySeven"
         }
     }
 
