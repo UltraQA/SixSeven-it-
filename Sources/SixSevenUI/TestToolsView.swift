@@ -46,7 +46,7 @@ public struct TestToolsMenu: View {
 
             Section("Cheats") {
                 ForEach(Outcome.allCases, id: \.self) { outcome in
-                    Button("Force result (outcome.rawValue)") {
+                    Button(outcome.rawValue) {
                         onForceOutcome(outcome)
                     }
                 }
