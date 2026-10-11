@@ -7,6 +7,7 @@ public enum AppTheme: String, Codable, CaseIterable, Sendable {
 public enum CoinTheme: String, Codable, CaseIterable, Sendable {
     case illustrated
     case colorful
+    case silver
     case classic
 }
 

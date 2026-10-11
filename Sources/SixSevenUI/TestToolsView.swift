@@ -179,6 +179,7 @@ private extension CoinTheme {
         switch self {
         case .illustrated: "Illustrated"
         case .colorful: "Colorful"
+        case .silver: "Silver"
         case .classic: "Classic"
         }
     }
@@ -187,6 +188,7 @@ private extension CoinTheme {
         switch self {
         case .illustrated: "CoinIdle"
         case .colorful: "CoinColorfulQuestion"
+        case .silver: "CoinSilverQuestion"
         case .classic: ""
         }
     }

@@ -122,6 +122,13 @@ public struct CoinView: View {
             case .seven: "CoinColorfulSeven"
             case .sixtySeven: "CoinColorfulSixtySeven"
             }
+        case .silver:
+            return switch outcome {
+            case nil: "CoinSilverQuestion"
+            case .six: "CoinSilverSix"
+            case .seven: "CoinSilverSeven"
+            case .sixtySeven: "CoinSilverSixtySeven"
+            }
         case .classic:
             return nil
         }
