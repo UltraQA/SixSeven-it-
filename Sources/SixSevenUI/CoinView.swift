@@ -105,13 +105,25 @@ public struct CoinView: View {
     }
 
     private var imageAssetName: String? {
-        guard theme == .illustrated else { return nil }
+        guard theme != .classic else { return nil }
 
-        return switch outcome {
-        case nil: "CoinIdle"
-        case .six: "CoinSix"
-        case .seven: "CoinSeven"
-        case .sixtySeven: "CoinSixtySeven"
+        switch theme {
+        case .illustrated:
+            return switch outcome {
+            case nil: "CoinIdle"
+            case .six: "CoinSix"
+            case .seven: "CoinSeven"
+            case .sixtySeven: "CoinSixtySeven"
+            }
+        case .colorful:
+            return switch outcome {
+            case nil: "CoinColorfulQuestion"
+            case .six: "CoinColorfulSix"
+            case .seven: "CoinColorfulSeven"
+            case .sixtySeven: "CoinColorfulSixtySeven"
+            }
+        case .classic:
+            return nil
         }
     }
 

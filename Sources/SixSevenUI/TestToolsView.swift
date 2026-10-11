@@ -104,8 +104,8 @@ public struct TestToolsMenu: View {
         Label {
             Text(theme.title)
         } icon: {
-            if theme == .illustrated {
-                Image("CoinIdle")
+            if theme != .classic {
+                Image(theme.previewAssetName)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 28, height: 28)
@@ -170,7 +170,16 @@ private extension CoinTheme {
     var title: String {
         switch self {
         case .illustrated: "Illustrated"
+        case .colorful: "Colorful"
         case .classic: "Classic"
+        }
+    }
+
+    var previewAssetName: String {
+        switch self {
+        case .illustrated: "CoinIdle"
+        case .colorful: "CoinColorfulQuestion"
+        case .classic: ""
         }
     }
 
