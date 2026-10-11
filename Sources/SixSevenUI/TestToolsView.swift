@@ -66,6 +66,16 @@ public struct TestToolsMenu: View {
                 }
             }
 
+            Section("Background") {
+                ForEach(BackgroundTheme.allCases, id: \.self) { theme in
+                    Button {
+                        settingsViewModel.setBackgroundTheme(theme)
+                    } label: {
+                        backgroundThemeMenuLabel(theme)
+                    }
+                }
+            }
+
             Section("Cheats") {
                 ForEach(Outcome.allCases, id: \.self) { outcome in
                     Button(outcome.rawValue) {
@@ -125,6 +135,18 @@ public struct TestToolsMenu: View {
             } else {
                 Image(systemName: "circle.dotted")
             }
+        }
+    }
+
+    private func backgroundThemeMenuLabel(_ theme: BackgroundTheme) -> some View {
+        Label {
+            Text(theme.title)
+        } icon: {
+            Image(theme.previewAssetName)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 28, height: 28)
+                .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
         }
     }
 
@@ -201,4 +223,21 @@ private extension CoinTheme {
         }
     }
 
+}
+
+private extension BackgroundTheme {
+    var title: String {
+        switch self {
+        case .automatic: "Automatic"
+        case .colorfulOne: "Colorful 1"
+        case .colorfulTwo: "Colorful 2"
+        }
+    }
+
+    var previewAssetName: String {
+        switch self {
+        case .automatic, .colorfulOne: "BackgroundColorOne"
+        case .colorfulTwo: "BackgroundColorTwo"
+        }
+    }
 }

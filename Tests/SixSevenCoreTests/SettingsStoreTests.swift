@@ -10,7 +10,8 @@ final class SettingsStoreTests: XCTestCase {
             soundEffectsEnabled: false,
             motionControlEnabled: true,
             theme: .dark,
-            coinTheme: .classic
+            coinTheme: .classic,
+            backgroundTheme: .colorfulTwo
         )
 
         try await store.save(expected)

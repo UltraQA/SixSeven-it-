@@ -123,7 +123,14 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
     }
 
     private var backgroundAssetName: String {
-        result?.outcome == .sixtySeven ? "BackgroundColorTwo" : "BackgroundColorOne"
+        switch settingsViewModel.settings.backgroundTheme {
+        case .automatic:
+            result?.outcome == .sixtySeven ? "BackgroundColorTwo" : "BackgroundColorOne"
+        case .colorfulOne:
+            "BackgroundColorOne"
+        case .colorfulTwo:
+            "BackgroundColorTwo"
+        }
     }
 
     private var header: some View {
