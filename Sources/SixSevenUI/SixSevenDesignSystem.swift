@@ -88,6 +88,7 @@ public enum SixSevenCoinMetrics {
 public enum SixSevenTiming {
     public static let flipAnimation: Duration = .milliseconds(650)
     public static let resultCooldown: Duration = .milliseconds(1_250)
+    public static let backgroundTransitionDuration: TimeInterval = 1.5
 }
 
 public enum SixSevenQuestionMetrics {

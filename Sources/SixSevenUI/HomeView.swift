@@ -46,9 +46,21 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                 }
                 .scrollDisabled(!dynamicTypeSize.isAccessibilitySize)
                 .background {
-                    SixSevenColors.backgroundPrimary
-                        .ignoresSafeArea()
-                        .contentShape(Rectangle())
+                    ZStack {
+                        SixSevenColors.backgroundPrimary
+
+                        Image(backgroundAssetName)
+                            .resizable()
+                            .scaledToFill()
+                            .ignoresSafeArea()
+                            .id(backgroundAssetName)
+                            .transition(.opacity)
+                    }
+                    .animation(
+                        .easeInOut(duration: SixSevenTiming.backgroundTransitionDuration),
+                        value: backgroundAssetName
+                    )
+                    .contentShape(Rectangle())
                 }
 #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
@@ -108,6 +120,10 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
         case .light: .light
         case .dark: .dark
         }
+    }
+
+    private var backgroundAssetName: String {
+        result?.outcome == .sixtySeven ? "BackgroundColorTwo" : "BackgroundColorOne"
     }
 
     private var header: some View {
