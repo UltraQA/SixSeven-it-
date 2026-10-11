@@ -38,6 +38,12 @@ public struct TestToolsMenu: View {
                 } label: {
                     iconMenuLabel("Colorful", assetName: "AppIconColorful")
                 }
+
+                Button {
+                    setAppIcon(.silver)
+                } label: {
+                    iconMenuLabel("Silver", assetName: "AppIconSilver")
+                }
             }
 
             Section("Theme") {
@@ -146,12 +152,14 @@ private enum AppIconVariant {
     case primary
     case illustrated2
     case colorful
+    case silver
 
     var alternateName: String? {
         switch self {
         case .primary: nil
         case .illustrated2: "AppIconVariant2"
         case .colorful: "AppIconColorful"
+        case .silver: "AppIconSilver"
         }
     }
 }
