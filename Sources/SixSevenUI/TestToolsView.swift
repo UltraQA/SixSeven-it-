@@ -24,25 +24,25 @@ public struct TestToolsMenu: View {
                 Button {
                     setAppIcon(.primary)
                 } label: {
-                    iconMenuLabel("Illustrated", assetName: "AppIcon")
+                    iconMenuLabel("Illustrated", assetName: "AppIconIllustratedPreview")
                 }
 
                 Button {
                     setAppIcon(.illustrated2)
                 } label: {
-                    iconMenuLabel("Illustrated 2", assetName: "AppIconVariant2")
+                    iconMenuLabel("Illustrated 2", assetName: "AppIconIllustratedTwoPreview")
                 }
 
                 Button {
                     setAppIcon(.colorful)
                 } label: {
-                    iconMenuLabel("Colorful", assetName: "AppIconColorful")
+                    iconMenuLabel("Colorful", assetName: "AppIconColorfulPreview")
                 }
 
                 Button {
                     setAppIcon(.silver)
                 } label: {
-                    iconMenuLabel("Silver", assetName: "AppIconSilver")
+                    iconMenuLabel("Silver", assetName: "AppIconSilverPreview")
                 }
             }
 
