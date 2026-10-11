@@ -49,12 +49,14 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
                     ZStack {
                         SixSevenColors.backgroundPrimary
 
-                        Image(backgroundAssetName)
-                            .resizable()
-                            .scaledToFill()
-                            .ignoresSafeArea()
-                            .id(backgroundAssetName)
-                            .transition(.opacity)
+                        if let backgroundAssetName {
+                            Image(backgroundAssetName)
+                                .resizable()
+                                .scaledToFill()
+                                .ignoresSafeArea()
+                                .id(backgroundAssetName)
+                                .transition(.opacity)
+                        }
                     }
                     .animation(
                         .easeInOut(duration: SixSevenTiming.backgroundTransitionDuration),
@@ -122,10 +124,10 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
         }
     }
 
-    private var backgroundAssetName: String {
+    private var backgroundAssetName: String? {
         switch settingsViewModel.settings.backgroundTheme {
         case .automatic:
-            result?.outcome == .sixtySeven ? "BackgroundColorTwo" : "BackgroundColorOne"
+            nil
         case .colorfulOne:
             "BackgroundColorOne"
         case .colorfulTwo:
