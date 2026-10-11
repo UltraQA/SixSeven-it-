@@ -24,13 +24,19 @@ public struct TestToolsMenu: View {
                 Button {
                     setAppIcon(.primary)
                 } label: {
-                    iconMenuLabel("Variant 1", assetName: "AppIcon")
+                    iconMenuLabel("Illustrated", assetName: "AppIcon")
                 }
 
                 Button {
-                    setAppIcon(.variant2)
+                    setAppIcon(.illustrated2)
                 } label: {
-                    iconMenuLabel("Variant 2", assetName: "AppIconVariant2")
+                    iconMenuLabel("Illustrated 2", assetName: "AppIconVariant2")
+                }
+
+                Button {
+                    setAppIcon(.colorful)
+                } label: {
+                    iconMenuLabel("Colorful", assetName: "AppIconColorful")
                 }
             }
 
@@ -138,12 +144,14 @@ public struct TestToolsMenu: View {
 
 private enum AppIconVariant {
     case primary
-    case variant2
+    case illustrated2
+    case colorful
 
     var alternateName: String? {
         switch self {
         case .primary: nil
-        case .variant2: "AppIconVariant2"
+        case .illustrated2: "AppIconVariant2"
+        case .colorful: "AppIconColorful"
         }
     }
 }
