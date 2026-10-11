@@ -9,7 +9,8 @@ final class SettingsStoreTests: XCTestCase {
         let expected = AppSettings(
             soundEffectsEnabled: false,
             motionControlEnabled: true,
-            theme: .dark
+            theme: .dark,
+            coinTheme: .classic
         )
 
         try await store.save(expected)

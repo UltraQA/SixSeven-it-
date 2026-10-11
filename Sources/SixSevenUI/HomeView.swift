@@ -193,7 +193,8 @@ public struct HomeView<Provider: FlipOutcomeProviding>: View {
             CoinView(
                 outcome: viewModel.currentOutcome,
                 isFlipping: viewModel.isFlipping,
-                flipCount: viewModel.statistics.totalFlips
+                flipCount: viewModel.statistics.totalFlips,
+                theme: settingsViewModel.settings.coinTheme
             )
             .contentShape(Rectangle())
             .accessibilityHint("Swipe up anywhere below the header to flip")

@@ -40,6 +40,10 @@ public final class SettingsViewModel: ObservableObject {
         update { $0.theme = theme }
     }
 
+    public func setCoinTheme(_ theme: CoinTheme) {
+        update { $0.coinTheme = theme }
+    }
+
     private func update(_ change: (inout AppSettings) -> Void) {
         change(&settings)
         saveTask?.cancel()

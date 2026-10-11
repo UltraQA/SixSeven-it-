@@ -44,6 +44,16 @@ public struct TestToolsMenu: View {
                 }
             }
 
+            Section("Coin Theme") {
+                ForEach(CoinTheme.allCases, id: \.self) { theme in
+                    Button {
+                        settingsViewModel.setCoinTheme(theme)
+                    } label: {
+                        coinThemeMenuLabel(theme)
+                    }
+                }
+            }
+
             Section("Cheats") {
                 ForEach(Outcome.allCases, id: \.self) { outcome in
                     Button(outcome.rawValue) {
@@ -87,6 +97,22 @@ public struct TestToolsMenu: View {
             Text(theme.title)
         } icon: {
             Image(systemName: theme.systemImageName)
+        }
+    }
+
+    private func coinThemeMenuLabel(_ theme: CoinTheme) -> some View {
+        Label {
+            Text(theme.title)
+        } icon: {
+            if theme == .illustrated {
+                Image("CoinIdle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 28, height: 28)
+                    .clipShape(Circle())
+            } else {
+                Image(systemName: "circle.dotted")
+            }
         }
     }
 
@@ -138,4 +164,14 @@ private extension AppTheme {
         case .dark: "moon"
         }
     }
+}
+
+private extension CoinTheme {
+    var title: String {
+        switch self {
+        case .illustrated: "Illustrated"
+        case .classic: "Classic"
+        }
+    }
+
 }

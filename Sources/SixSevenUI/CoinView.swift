@@ -5,15 +5,22 @@ public struct CoinView: View {
     public let outcome: Outcome?
     public let isFlipping: Bool
     public let flipCount: Int
+    public let theme: CoinTheme
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @ScaledMetric(relativeTo: .largeTitle) private var coinDiameter: CGFloat = SixSevenCoinMetrics.diameter
     @ScaledMetric(relativeTo: .largeTitle) private var valueFontSize: CGFloat = 88
 
-    public init(outcome: Outcome?, isFlipping: Bool, flipCount: Int = 0) {
+    public init(
+        outcome: Outcome?,
+        isFlipping: Bool,
+        flipCount: Int = 0,
+        theme: CoinTheme = .illustrated
+    ) {
         self.outcome = outcome
         self.isFlipping = isFlipping
         self.flipCount = flipCount
+        self.theme = theme
     }
 
     public var body: some View {
@@ -98,7 +105,9 @@ public struct CoinView: View {
     }
 
     private var imageAssetName: String? {
-        switch outcome {
+        guard theme == .illustrated else { return nil }
+
+        return switch outcome {
         case nil: "CoinIdle"
         case .six: "CoinSix"
         case .seven: "CoinSeven"
